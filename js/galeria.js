@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  const DEFAULT_IMAGES = [
+    {src:"./img/galeria/nexus-raids.svg",title:"Noches de Raid",cat:"Raids",desc:"Momentos de progresión de NEXUS"},
+    {src:"./img/galeria/nexus-azeroth.svg",title:"Explorando Azeroth",cat:"Azeroth",desc:"Aventuras y exploración"},
+    {src:"./img/galeria/nexus-pvp.svg",title:"Honor y combate",cat:"PvP",desc:"Actividades PvP de la hermandad"},
+    {src:"./img/galeria/nexus-community.svg",title:"Juntos en Forever",cat:"Comunidad",desc:"La comunidad por encima de todo"}
+  ];
   let images = [];
   let filter = "Todas", index = 0;
   const slider = document.getElementById("gallerySlider");
@@ -76,13 +82,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("nextSlide").onclick = () => move(1);
 
   try {
-    const response = await fetch("./datos/galeria.json?v=2", { cache: "no-store" });
+    const response = await fetch("./datos/galeria.json?v=3", { cache: "no-store" });
     if(!response.ok) throw new Error("No se pudo cargar la galería");
     images = await response.json();
     if(!Array.isArray(images)) throw new Error("Formato de galería no válido");
     render();
   } catch (error) {
-    console.error(error);
-    slider.innerHTML = '<p class="muted">No se ha podido cargar la galería. Comprueba que <code>datos/galeria.json</code> existe en GitHub.</p>';
+    console.warn("No se pudo cargar datos/galeria.json; se usarán las imágenes incluidas en la web.", error);
+    images = DEFAULT_IMAGES;
+    render();
   }
 });
