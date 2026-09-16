@@ -17,3 +17,10 @@ Web estática preparada para GitHub Pages.
 
 ## Música
 La música no se fuerza con sonido al cargar porque los navegadores pueden bloquear el autoplay. El visitante puede pulsar **NEXUS MUSIC** para activarla. La web guarda volumen, silencio y preferencia de reproducción en el navegador.
+
+
+## Nuevas funciones
+- **Títulos:** jerarquía tipográfica más clara, tamaños responsive y color dorado coherente con la estética NEXUS.
+- **Calendario:** en `calendario.html` puedes añadir eventos con fecha, hora, tipo y descripción. Los eventos se guardan en el navegador con `localStorage`.
+- **Galería:** en `galeria.html` hay un slider con flechas, puntos, miniaturas y filtros por categoría. Puedes añadir tus propias capturas desde el botón **+ Añadir imágenes**.
+- **Importante:** calendario y fotos añadidas desde la web se guardan localmente en cada navegador. Para que todos los miembros vean los mismos eventos/imágenes desde distintos dispositivos hace falta conectarlo a una base de datos/servidor.
