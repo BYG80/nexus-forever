@@ -1,19 +1,29 @@
-# NEXUS — Veteranos de Azeroth
+# NEXUS Forever
 
-Web estática preparada para GitHub Pages.
+Web estática de la hermandad NEXUS — Veteranos de Azeroth, preparada para publicarse directamente con GitHub Pages.
 
 ## Estructura
-- HTML en la raíz.
-- `css/` con los estilos globales y de cada página.
-- `js/script.js` con navegación, botón volver arriba y reproductor musical.
-- `img/` con el fondo de NEXUS.
-- `audio/nexus-ambient.mp3` con una pista ambiental original generada para la web.
 
-## GitHub Pages
-1. Sube el contenido de esta carpeta al repositorio `nexus-forever`.
-2. En GitHub: **Settings → Pages**.
-3. Selecciona **Deploy from a branch**, rama `main` y carpeta `/ (root)`.
-4. Guarda y espera a que GitHub Pages publique la web.
+- HTML, CSS y JavaScript en el repositorio.
+- Imágenes y música incluidas localmente.
+- `datos/eventos.json` contiene los eventos del calendario.
+- `.github/workflows/pages.yml` publica el sitio en GitHub Pages.
 
-## Música
-La música no se fuerza con sonido al cargar porque los navegadores pueden bloquear el autoplay. El visitante puede pulsar **NEXUS MUSIC** para activarla. La web guarda volumen, silencio y preferencia de reproducción en el navegador.
+## Calendario
+
+El calendario no utiliza servidor ni servicios externos. Para añadir, editar o eliminar eventos, abre `datos/eventos.json` en GitHub, pulsa **Edit**, modifica el contenido y haz **Commit changes**. Los visitantes verán los eventos cuando GitHub Pages publique el cambio.
+
+### Formato de evento
+
+```json
+{
+  "id": "raid-2027-04-24",
+  "date": "2027-04-24",
+  "time": "21:30",
+  "title": "Raid de hermandad",
+  "type": "Raid",
+  "description": "Detalles del evento"
+}
+```
+
+No hay acceso de administrador dentro de la web. La capacidad de editar el calendario queda limitada a quienes tengan permisos de escritura en el repositorio de GitHub.

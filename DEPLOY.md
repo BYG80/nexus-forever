@@ -1,15 +1,19 @@
-# Despliegue recomendado
+# NEXUS Forever — GitHub Pages
 
-El ZIP contiene frontend y backend separados.
+Este proyecto está preparado para funcionar únicamente con GitHub Pages. No necesita Node.js, Render, Railway, Firebase ni otro servidor.
 
-1. Sube el frontend a tu hosting web.
-2. Ejecuta el backend en un servidor Node.js/VPS/servicio que soporte Node.
-3. Cambia `window.NEXUS_API_URL` en `js/backend-config.js` por la URL HTTPS del backend.
-4. En el `.env` del backend establece:
-   - `JWT_SECRET` fuerte y aleatorio.
-   - `ADMIN_USERNAME`
-   - `ADMIN_PASSWORD`
-   - `CORS_ORIGIN` = dominio exacto del frontend.
-5. Ejecuta `npm install` y `npm start`.
+## Calendario
 
-La autenticación y autorización se realizan en el backend; no confíes en variables JavaScript del frontend para los permisos.
+Los eventos están en `datos/eventos.json`. Para añadir, editar o borrar eventos:
+
+1. Abre el repositorio en GitHub.
+2. Entra en `datos/eventos.json`.
+3. Pulsa **Edit**.
+4. Modifica el JSON.
+5. Pulsa **Commit changes**.
+
+La página `calendario.html` lee ese archivo directamente y los cambios aparecen para todos los visitantes después de que GitHub Pages publique la actualización.
+
+## Publicar
+
+En GitHub: **Settings → Pages → Deploy from a branch**, selecciona la rama principal y la carpeta `/ (root)`.

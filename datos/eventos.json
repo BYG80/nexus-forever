@@ -1,0 +1,10 @@
+[
+  {
+    "id": "ejemplo-raid",
+    "date": "2027-04-24",
+    "time": "21:30",
+    "title": "Raid de ejemplo",
+    "type": "Raid",
+    "description": "Evento de ejemplo. Edita o elimina este evento desde GitHub."
+  }
+]

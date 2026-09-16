@@ -9,7 +9,7 @@
 <nav class="site-nav"><div class="nav-inner">
 <a class="brand" href="index.html">NEXUS</a><button class="menu-toggle" aria-label="Abrir menú">☰</button>
 <div class="nav-links">
-<a href="index.html">Inicio</a><a href="historia.html">Historia</a><a href="raids.html">Raids</a><a href="mazmorras.html">Mazmorras</a><a href="logros.html">Logros</a><a href="profesiones.html">Profesiones</a><a href="pvp.html">PvP</a><a href="comunidad.html">Comunidad</a><a href="calendario.html">Calendario</a><a data-admin-nav href="calendario.html" hidden>Administrador</a><a data-logout href="login.html" hidden>Cerrar sesión</a><a data-login-link href="login.html">Acceso administrador</a><a href="galeria.html">Galería</a><a href="reclutamiento.html" class="nav-cta">Unirse</a>
+<a href="index.html">Inicio</a><a href="historia.html">Historia</a><a href="raids.html">Raids</a><a href="mazmorras.html">Mazmorras</a><a href="logros.html">Logros</a><a href="profesiones.html">Profesiones</a><a href="pvp.html">PvP</a><a href="comunidad.html">Comunidad</a><a href="calendario.html">Calendario</a><a href="galeria.html">Galería</a><a href="reclutamiento.html" class="nav-cta">Unirse</a>
 </div></div></nav>
 <header class="page-hero"><div class="container"><div class="eyebrow">NEXUS · WORLD OF WARCRAFT FOREVER</div><h1>Galería de Azeroth</h1><p>Capturas, raids y momentos de la hermandad en un slider fácil de navegar.</p></div></header>
 <main><section><div class="container">
@@ -17,7 +17,7 @@
 <div class="gallery-slider" id="gallerySlider"><button class="slider-arrow prev" id="prevSlide" aria-label="Anterior">‹</button><button class="slider-arrow next" id="nextSlide" aria-label="Siguiente">›</button></div>
 <div class="gallery-dots" id="galleryDots"></div>
 <div class="gallery-grid" id="galleryThumbs"></div>
-<p class="gallery-help">Puedes subir capturas desde aquí. Se guardan en este navegador. Para una galería permanente y compartida entre todos los miembros habría que alojar las imágenes en el servidor.</p>
+<p class="gallery-help">Puedes subir capturas desde aquí. Se guardan en este navegador. Para una galería permanente y compartida entre todos los miembros, añade las imágenes al repositorio de GitHub y actualiza la galería.</p>
 </div></section></main>
 <footer class="site-footer"><div class="container footer-grid"><div><strong>NEXUS — VETERANOS DE AZEROTH</strong><p>World of Warcraft Forever · Comunidad española</p></div><div><a href="reclutamiento.html">Reclutamiento</a> · <a href="normas.html">Normas</a></div></div><div class="copyright">© 2026 NEXUS — Veteranos de Azeroth</div></footer>
 <button class="back-top" aria-label="Volver arriba">↑</button>
@@ -133,37 +133,6 @@
     play: startMusic,
     pause: stopMusic,
     toggle: toggleMusic
-  };
-})();
-</script>
-
-<script src="./js/auth.js"></script>
-
-<script>
-(function () {
-  const API = window.NEXUS_API_URL || "http://localhost:3000";
-  window.NexusAPI = {
-    async request(path, options = {}) {
-      const headers = { ...(options.headers || {}) };
-      const token = sessionStorage.getItem("nexus_token");
-      if (token) headers.Authorization = "Bearer " + token;
-      if (options.body && typeof options.body !== "string") {
-        headers["Content-Type"] = "application/json";
-        options.body = JSON.stringify(options.body);
-      }
-      const res = await fetch(API + path, { ...options, headers });
-      let data = {};
-      try { data = await res.json(); } catch {}
-      if (!res.ok) throw new Error(data.error || "Error de conexión.");
-      return data;
-    },
-    login(username, password) {
-      return this.request("/api/auth/login", { method: "POST", body: { username, password } });
-    },
-    events() { return this.request("/api/events"); },
-    addEvent(event) { return this.request("/api/events", { method: "POST", body: event }); },
-    updateEvent(id, event) { return this.request("/api/events/" + encodeURIComponent(id), { method: "PUT", body: event }); },
-    deleteEvent(id) { return this.request("/api/events/" + encodeURIComponent(id), { method: "DELETE" }); }
   };
 })();
 </script>
