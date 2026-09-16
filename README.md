@@ -1,18 +1,23 @@
 # NEXUS — Veteranos de Azeroth
 
-Web estática de la hermandad para World of Warcraft Forever.
-
-## Estructura
-- `index.html` — inicio
-- Páginas HTML separadas para cada sección
-- `css/global.css` — estilos comunes
-- `css/*.css` — estilos específicos de cada página
-- `js/script.js` — menú móvil y botón volver arriba
-- `img/` — recursos gráficos
-
 ## GitHub Pages
-Sube todo el contenido de esta carpeta al directorio raíz del repositorio y activa:
-**Settings → Pages → Deploy from a branch → main → /(root)**.
+Sube **todos estos archivos y carpetas directamente a la raíz del repositorio**.
 
-## Enlaces pendientes
-Sustituye los enlaces de Discord y YouTube de `comunidad.html` y `reclutamiento.html` por las URLs reales de la hermandad.
+Debe quedar así:
+- index.html
+- historia.html
+- raids.html
+- mazmorras.html
+- logros.html
+- profesiones.html
+- pvp.html
+- comunidad.html
+- reclutamiento.html
+- normas.html
+- css/
+- js/
+- img/
+
+No metas la carpeta `NEXUS_WEB_SEPARADA_CORREGIDA` dentro del repositorio.
+
+Después: Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save.
