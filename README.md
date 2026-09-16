@@ -27,3 +27,8 @@ El calendario no utiliza servidor ni servicios externos. Para añadir, editar o 
 ```
 
 No hay acceso de administrador dentro de la web. La capacidad de editar el calendario queda limitada a quienes tengan permisos de escritura en el repositorio de GitHub.
+
+
+## Galería
+
+La galería no permite subir imágenes desde la web. Para añadir imágenes: sube el archivo a `img/galeria/` desde GitHub y añade su entrada en `datos/galeria.json`. Después de hacer commit, GitHub Pages publicará el cambio.

@@ -1,13 +1,5 @@
 [
   {
-    "id": "BETA WOW FOREVER",
-    "date": "17-09-2026",
-    "time": "15:30",
-    "title": "Beta test de guild",
-    "type": "Comunidad",
-    "description": "Evento de guild sobre la beta."
-  }
-    {
     "id": "ejemplo-raid",
     "date": "2027-04-24",
     "time": "21:30",
