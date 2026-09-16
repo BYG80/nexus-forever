@@ -1,185 +1,24 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Calendario | NEXUS</title><meta name="description" content="Calendario de eventos de la hermandad NEXUS para World of Warcraft Forever.">
-<link rel="stylesheet" href="./css/global.css"><link rel="stylesheet" href="./css/calendario.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head><body>
-<nav class="site-nav"><div class="nav-inner">
-<a class="brand" href="index.html">NEXUS</a><button class="menu-toggle" aria-label="Abrir menú">☰</button>
-<div class="nav-links">
-<a href="index.html">Inicio</a><a href="historia.html">Historia</a><a href="raids.html">Raids</a><a href="mazmorras.html">Mazmorras</a><a href="logros.html">Logros</a><a href="profesiones.html">Profesiones</a><a href="pvp.html">PvP</a><a href="comunidad.html">Comunidad</a><a href="calendario.html">Calendario</a><a href="galeria.html">Galería</a><a data-admin-nav href="calendario.html" hidden>Administrador</a><a data-logout href="login.html" hidden>Cerrar sesión</a><a data-login-link href="login.html">Acceso administrador</a><a href="reclutamiento.html" class="nav-cta">Unirse</a>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendario | NEXUS Forever</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/calendario.css">
+</head>
+<body>
+<nav class="site-nav"><div class="nav-inner"><a class="brand" href="index.html">NEXUS Forever</a><button class="menu-toggle" aria-label="Abrir menú">☰</button><div class="nav-links">
+<a href="index.html">Inicio</a><a href="historia.html">Historia</a><a href="raids.html">Raids</a><a href="mazmorras.html">Mazmorras</a><a href="pvp.html">PvP</a><a href="profesiones.html">Profesiones</a><a href="logros.html">Logros</a><a href="calendario.html">Calendario</a><a href="galeria.html">Galería</a><a href="reclutamiento.html" class="nav-cta">Reclutamiento</a>
 </div></div></nav>
-<header class="page-hero"><div class="container"><div class="eyebrow">NEXUS · WORLD OF WARCRAFT FOREVER</div><h1>Calendario de la hermandad</h1><p>Organiza raids, mazmorras, PvP, reuniones y cualquier actividad de NEXUS.</p></div></header>
-<main><section><div class="container">
-<div class="calendar-wrap">
-<div class="card calendar-card">
-<div class="calendar-head"><button class="icon-btn" id="prevMonth" type="button">←</button><h2 id="monthTitle"></h2><button class="icon-btn" id="nextMonth" type="button">→</button></div>
-<div class="weekdays"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div>
-<div class="calendar-grid" id="calendarGrid"></div>
-<p class="calendar-note">Los eventos se guardan en este navegador. Solo el administrador puede añadir o eliminar eventos.</p>
-</div>
-<div class="card" data-admin-only>
-<h2>Añadir evento</h2>
-<form id="eventForm" class="form-grid">
-<div class="form-field full"><label for="eventTitle">Título</label><input id="eventTitle" required maxlength="70" placeholder="Ej. Raid Núcleo de Magma"></div>
-<div class="form-field"><label for="eventDate">Fecha</label><input id="eventDate" type="date" required></div>
-<div class="form-field"><label for="eventTime">Hora</label><input id="eventTime" type="time"></div>
-<div class="form-field"><label for="eventType">Tipo</label><select id="eventType"><option>Raid</option><option>Mazmorra</option><option>PvP</option><option>Social</option><option>Otro</option></select></div>
-<div class="form-field full"><label for="eventDesc">Descripción</label><textarea id="eventDesc" maxlength="220" placeholder="Detalles, requisitos, punto de encuentro..."></textarea></div>
-<div class="form-field full"><button class="btn primary" type="submit">Añadir al calendario</button></div>
-</form>
-<div id="eventList" class="event-list"></div>
-</div>
-</div>
+<main><section class="page-hero"><div class="container"><div class="eyebrow">NEXUS Forever</div><h1>Calendario</h1><p>Consulta los próximos eventos de la hermandad. Los datos se cargan directamente desde el repositorio de GitHub.</p></div></section>
+<section><div class="container">
+<div class="calendar-toolbar"><button class="btn ghost" id="prevMonth">← Anterior</button><h2 id="monthTitle">Calendario</h2><button class="btn ghost" id="nextMonth">Siguiente →</button></div>
+<p id="calendarStatus" class="muted">Cargando eventos…</p><div id="calendar" class="calendar-grid" aria-label="Calendario de eventos"></div>
+<h2 class="section-title" style="margin-top:55px">Próximos eventos</h2><div id="eventList" class="event-list"></div>
+<div class="admin-note"><strong>¿Cómo añado un evento?</strong><br>En la opción A no usamos servidores externos. El administrador edita <code>datos/eventos.json</code> directamente en GitHub. Solo las personas que tengan permiso de escritura en tu repositorio podrán cambiar los eventos. Después de guardar el archivo, GitHub Pages publicará el cambio automáticamente.</div>
 </div></section></main>
-<footer class="site-footer"><div class="container footer-grid"><div><strong>NEXUS — VETERANOS DE AZEROTH</strong><p>World of Warcraft Forever · Comunidad española</p></div><div><a href="reclutamiento.html">Reclutamiento</a> · <a href="normas.html">Normas</a></div></div><div class="copyright">© 2026 NEXUS — Veteranos de Azeroth</div></footer>
-<button class="back-top" aria-label="Volver arriba">↑</button>
-<script src="./js/script.js"></script><script src="./js/auth.js"></script><script src="./js/calendario.js"></script>
-
-<script>
-(function () {
-  'use strict';
-
-  const STORAGE_KEY = 'nexusMusicEnabled';
-  let audio = null;
-  let started = false;
-
-  function findAudio() {
-    if (audio && document.contains(audio)) return audio;
-    audio = document.querySelector('audio');
-    return audio;
-  }
-
-  function updateButton() {
-    const a = findAudio();
-    if (!a) return;
-    document.querySelectorAll(
-      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-    ).forEach(btn => {
-      btn.setAttribute('aria-pressed', String(!a.paused));
-      if (btn.dataset && btn.dataset.musicLabel !== 'false') {
-        const icon = btn.querySelector('.music-icon');
-        if (icon) icon.textContent = a.paused ? '🔇' : '🔊';
-      }
-    });
-  }
-
-  function startMusic() {
-    const a = findAudio();
-    if (!a) return;
-    a.loop = true;
-    a.muted = false;
-    const p = a.play();
-    if (p && typeof p.catch === 'function') {
-      p.then(() => {
-        started = true;
-        localStorage.setItem(STORAGE_KEY, '1');
-        updateButton();
-      }).catch(() => {
-        // Browser autoplay policy: first user interaction will retry.
-      });
-    }
-  }
-
-  function stopMusic() {
-    const a = findAudio();
-    if (!a) return;
-    a.pause();
-    localStorage.setItem(STORAGE_KEY, '0');
-    updateButton();
-  }
-
-  function toggleMusic(e) {
-    if (e) e.stopPropagation();
-    const a = findAudio();
-    if (!a) return;
-    if (a.paused) startMusic();
-    else stopMusic();
-  }
-
-  function initMusic() {
-    const a = findAudio();
-    if (!a) return;
-
-    a.loop = true;
-    a.autoplay = true;
-    a.setAttribute('autoplay', '');
-    a.setAttribute('loop', '');
-
-    // Default is ON unless the user explicitly disabled it.
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved !== '0') {
-      startMusic();
-
-      // Retry after the first interaction if autoplay was blocked.
-      const retry = function () {
-        startMusic();
-        document.removeEventListener('pointerdown', retry, true);
-        document.removeEventListener('keydown', retry, true);
-        document.removeEventListener('touchstart', retry, true);
-      };
-      document.addEventListener('pointerdown', retry, true);
-      document.addEventListener('keydown', retry, true);
-      document.addEventListener('touchstart', retry, true);
-    } else {
-      a.pause();
-      updateButton();
-    }
-
-    document.querySelectorAll(
-      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-    ).forEach(btn => {
-      btn.addEventListener('click', toggleMusic);
-    });
-
-    a.addEventListener('play', updateButton);
-    a.addEventListener('pause', updateButton);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMusic);
-  } else {
-    initMusic();
-  }
-
-  window.NexusMusic = {
-    play: startMusic,
-    pause: stopMusic,
-    toggle: toggleMusic
-  };
-})();
-</script>
-
-
-<script>
-(function () {
-  const API = window.NEXUS_API_URL || "http://localhost:3000";
-  window.NexusAPI = {
-    async request(path, options = {}) {
-      const headers = { ...(options.headers || {}) };
-      const token = sessionStorage.getItem("nexus_token");
-      if (token) headers.Authorization = "Bearer " + token;
-      if (options.body && typeof options.body !== "string") {
-        headers["Content-Type"] = "application/json";
-        options.body = JSON.stringify(options.body);
-      }
-      const res = await fetch(API + path, { ...options, headers });
-      let data = {};
-      try { data = await res.json(); } catch {}
-      if (!res.ok) throw new Error(data.error || "Error de conexión.");
-      return data;
-    },
-    login(username, password) {
-      return this.request("/api/auth/login", { method: "POST", body: { username, password } });
-    },
-    events() { return this.request("/api/events"); },
-    addEvent(event) { return this.request("/api/events", { method: "POST", body: event }); },
-    updateEvent(id, event) { return this.request("/api/events/" + encodeURIComponent(id), { method: "PUT", body: event }); },
-    deleteEvent(id) { return this.request("/api/events/" + encodeURIComponent(id), { method: "DELETE" }); }
-  };
-})();
-</script>
-
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div><strong>NEXUS Forever</strong><p class="muted">Hermandad, comunidad y aventura.</p></div></div><div class="copyright">© NEXUS Forever</div></div></footer>
+<script src="js/script.js"></script><script src="js/calendario.js"></script>
 </body></html>

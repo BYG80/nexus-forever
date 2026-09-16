@@ -1,13 +1,19 @@
-# NEXUS Forever
+# NEXUS — Veteranos de Azeroth
 
-Frontend de NEXUS Forever preparado para GitHub Pages y backend Node.js.
+Web estática preparada para GitHub Pages.
 
-## Raíz del repositorio
-La web está directamente en la raíz: `index.html`, `css/`, `js/`, `img/`, `audio/`, etc.
+## Estructura
+- HTML en la raíz.
+- `css/` con los estilos globales y de cada página.
+- `js/script.js` con navegación, botón volver arriba y reproductor musical.
+- `img/` con el fondo de NEXUS.
+- `audio/nexus-ambient.mp3` con una pista ambiental original generada para la web.
 
-## Backend
-`backend/` contiene la API Node.js, autenticación, SQLite y permisos de administrador.
+## GitHub Pages
+1. Sube el contenido de esta carpeta al repositorio `nexus-forever`.
+2. En GitHub: **Settings → Pages**.
+3. Selecciona **Deploy from a branch**, rama `main` y carpeta `/ (root)`.
+4. Guarda y espera a que GitHub Pages publique la web.
 
-GitHub Pages NO ejecuta Node.js. El backend debe desplegarse en un servicio/servidor Node.js y después hay que poner su URL HTTPS en `js/backend-config.js`.
-
-No subas nunca `backend/.env` ni contraseñas reales a GitHub.
+## Música
+La música no se fuerza con sonido al cargar porque los navegadores pueden bloquear el autoplay. El visitante puede pulsar **NEXUS MUSIC** para activarla. La web guarda volumen, silencio y preferencia de reproducción en el navegador.
