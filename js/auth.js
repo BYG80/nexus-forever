@@ -2,7 +2,7 @@
   const KEY='nexusAdminSession';
   // Cambia estas credenciales antes de publicar la web. Esto protege la interfaz,
   // pero para seguridad real en Internet hace falta un servidor/backend.
-  const USER='admin';
+  const USER='byg80s';
   const PASS='NexusForever2026!';
   const isAdmin=()=>sessionStorage.getItem(KEY)==='1';
   const setAdmin=v=>{if(v) sessionStorage.setItem(KEY,'1'); else sessionStorage.removeItem(KEY);};
