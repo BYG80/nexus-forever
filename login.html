@@ -1,0 +1,31 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Acceso administrador | NEXUS</title><link rel="stylesheet" href="./css/global.css"><link rel="icon" type="image/x-icon" href="favicon.ico"><style>.login-wrap{max-width:460px;margin:70px auto}.login-card{padding:32px}.login-card h1{color:#d8ad55}.login-card label{display:block;margin:16px 0 7px}.login-card input{width:100%;box-sizing:border-box;padding:12px}.error{color:#e58b8b;min-height:1.4em}.hint{font-size:.85rem;opacity:.75;margin-top:18px}</style></head><body><nav class="site-nav"><div class="nav-inner"><a class="brand" href="index.html">NEXUS</a><div class="nav-links"><a href="index.html">Inicio</a><a href="calendario.html">Calendario</a><a href="galeria.html">Galería</a></div></div></nav><main><div class="container login-wrap"><div class="card login-card"><div class="eyebrow">NEXUS · PANEL PRIVADO</div><h1>Acceso de administrador</h1><p>Inicia sesión para añadir o eliminar eventos de la hermandad.</p><form id="loginForm"><label for="user">Usuario</label><input id="user" autocomplete="username" required><label for="pass">Contraseña</label><input id="pass" type="password" autocomplete="current-password" required><p id="error" class="error" role="alert"></p><button class="btn primary" type="submit">Entrar</button></form><p class="hint">Credenciales iniciales: usuario <b>admin</b>. Cambia la contraseña en <code>js/auth.js</code> antes de publicar.</p></div></div></main><script src="./js/auth.js"></script><script>document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();const u=document.getElementById('user').value,p=document.getElementById('pass').value;if(u===NexusAuth.USER&&p===NexusAuth.PASS){NexusAuth.setAdmin(true);location.href='calendario.html';}else document.getElementById('error').textContent='Usuario o contraseña incorrectos.';});</script>
+<script>
+(function () {
+  const API = window.NEXUS_API_URL || "http://localhost:3000";
+  window.NexusAPI = {
+    async request(path, options = {}) {
+      const headers = { ...(options.headers || {}) };
+      const token = sessionStorage.getItem("nexus_token");
+      if (token) headers.Authorization = "Bearer " + token;
+      if (options.body && typeof options.body !== "string") {
+        headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(options.body);
+      }
+      const res = await fetch(API + path, { ...options, headers });
+      let data = {};
+      try { data = await res.json(); } catch {}
+      if (!res.ok) throw new Error(data.error || "Error de conexión.");
+      return data;
+    },
+    login(username, password) {
+      return this.request("/api/auth/login", { method: "POST", body: { username, password } });
+    },
+    events() { return this.request("/api/events"); },
+    addEvent(event) { return this.request("/api/events", { method: "POST", body: event }); },
+    updateEvent(id, event) { return this.request("/api/events/" + encodeURIComponent(id), { method: "PUT", body: event }); },
+    deleteEvent(id) { return this.request("/api/events/" + encodeURIComponent(id), { method: "DELETE" }); }
+  };
+})();
+</script>
+
+</body></html>

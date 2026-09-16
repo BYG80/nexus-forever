@@ -5,6 +5,7 @@
 <title>Reclutamiento | NEXUS</title><meta name="description" content="NEXUS está reuniendo jugadores para comenzar juntos la aventura en World of Warcraft Forever.">
 <link rel="stylesheet" href="./css/global.css">
 <link rel="stylesheet" href="./css/reclutamiento.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head><body>
 <nav class="site-nav">
   <div class="nav-inner">
@@ -19,7 +20,7 @@
       <a href="profesiones.html">Profesiones</a>
       <a href="pvp.html">PvP</a>
       <a href="comunidad.html">Comunidad</a>
-      <a href="calendario.html">Calendario</a>
+      <a href="calendario.html">Calendario</a><a data-login-link href="login.html">Acceso administrador</a>
       <a href="galeria.html">Galería</a>
       <a href="reclutamiento.html" class="nav-cta">Unirse</a>
     </div>
@@ -36,4 +37,150 @@
 </footer>
 <button class="back-top" aria-label="Volver arriba">↑</button>
 <script src="./js/script.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  const STORAGE_KEY = 'nexusMusicEnabled';
+  let audio = null;
+  let started = false;
+
+  function findAudio() {
+    if (audio && document.contains(audio)) return audio;
+    audio = document.querySelector('audio');
+    return audio;
+  }
+
+  function updateButton() {
+    const a = findAudio();
+    if (!a) return;
+    document.querySelectorAll(
+      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
+    ).forEach(btn => {
+      btn.setAttribute('aria-pressed', String(!a.paused));
+      if (btn.dataset && btn.dataset.musicLabel !== 'false') {
+        const icon = btn.querySelector('.music-icon');
+        if (icon) icon.textContent = a.paused ? '🔇' : '🔊';
+      }
+    });
+  }
+
+  function startMusic() {
+    const a = findAudio();
+    if (!a) return;
+    a.loop = true;
+    a.muted = false;
+    const p = a.play();
+    if (p && typeof p.catch === 'function') {
+      p.then(() => {
+        started = true;
+        localStorage.setItem(STORAGE_KEY, '1');
+        updateButton();
+      }).catch(() => {
+        // Browser autoplay policy: first user interaction will retry.
+      });
+    }
+  }
+
+  function stopMusic() {
+    const a = findAudio();
+    if (!a) return;
+    a.pause();
+    localStorage.setItem(STORAGE_KEY, '0');
+    updateButton();
+  }
+
+  function toggleMusic(e) {
+    if (e) e.stopPropagation();
+    const a = findAudio();
+    if (!a) return;
+    if (a.paused) startMusic();
+    else stopMusic();
+  }
+
+  function initMusic() {
+    const a = findAudio();
+    if (!a) return;
+
+    a.loop = true;
+    a.autoplay = true;
+    a.setAttribute('autoplay', '');
+    a.setAttribute('loop', '');
+
+    // Default is ON unless the user explicitly disabled it.
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved !== '0') {
+      startMusic();
+
+      // Retry after the first interaction if autoplay was blocked.
+      const retry = function () {
+        startMusic();
+        document.removeEventListener('pointerdown', retry, true);
+        document.removeEventListener('keydown', retry, true);
+        document.removeEventListener('touchstart', retry, true);
+      };
+      document.addEventListener('pointerdown', retry, true);
+      document.addEventListener('keydown', retry, true);
+      document.addEventListener('touchstart', retry, true);
+    } else {
+      a.pause();
+      updateButton();
+    }
+
+    document.querySelectorAll(
+      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
+    ).forEach(btn => {
+      btn.addEventListener('click', toggleMusic);
+    });
+
+    a.addEventListener('play', updateButton);
+    a.addEventListener('pause', updateButton);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMusic);
+  } else {
+    initMusic();
+  }
+
+  window.NexusMusic = {
+    play: startMusic,
+    pause: stopMusic,
+    toggle: toggleMusic
+  };
+})();
+</script>
+
+<script src="./js/auth.js"></script>
+
+<script>
+(function () {
+  const API = window.NEXUS_API_URL || "http://localhost:3000";
+  window.NexusAPI = {
+    async request(path, options = {}) {
+      const headers = { ...(options.headers || {}) };
+      const token = sessionStorage.getItem("nexus_token");
+      if (token) headers.Authorization = "Bearer " + token;
+      if (options.body && typeof options.body !== "string") {
+        headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(options.body);
+      }
+      const res = await fetch(API + path, { ...options, headers });
+      let data = {};
+      try { data = await res.json(); } catch {}
+      if (!res.ok) throw new Error(data.error || "Error de conexión.");
+      return data;
+    },
+    login(username, password) {
+      return this.request("/api/auth/login", { method: "POST", body: { username, password } });
+    },
+    events() { return this.request("/api/events"); },
+    addEvent(event) { return this.request("/api/events", { method: "POST", body: event }); },
+    updateEvent(id, event) { return this.request("/api/events/" + encodeURIComponent(id), { method: "PUT", body: event }); },
+    deleteEvent(id) { return this.request("/api/events/" + encodeURIComponent(id), { method: "DELETE" }); }
+  };
+})();
+</script>
+
 </body></html>

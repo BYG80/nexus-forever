@@ -1,26 +1,13 @@
-# NEXUS — Veteranos de Azeroth
+# NEXUS Forever
 
-Web estática preparada para GitHub Pages.
+Frontend de NEXUS Forever preparado para GitHub Pages y backend Node.js.
 
-## Estructura
-- HTML en la raíz.
-- `css/` con los estilos globales y de cada página.
-- `js/script.js` con navegación, botón volver arriba y reproductor musical.
-- `img/` con el fondo de NEXUS.
-- `audio/nexus-ambient.mp3` con una pista ambiental original generada para la web.
+## Raíz del repositorio
+La web está directamente en la raíz: `index.html`, `css/`, `js/`, `img/`, `audio/`, etc.
 
-## GitHub Pages
-1. Sube el contenido de esta carpeta al repositorio `nexus-forever`.
-2. En GitHub: **Settings → Pages**.
-3. Selecciona **Deploy from a branch**, rama `main` y carpeta `/ (root)`.
-4. Guarda y espera a que GitHub Pages publique la web.
+## Backend
+`backend/` contiene la API Node.js, autenticación, SQLite y permisos de administrador.
 
-## Música
-La música no se fuerza con sonido al cargar porque los navegadores pueden bloquear el autoplay. El visitante puede pulsar **NEXUS MUSIC** para activarla. La web guarda volumen, silencio y preferencia de reproducción en el navegador.
+GitHub Pages NO ejecuta Node.js. El backend debe desplegarse en un servicio/servidor Node.js y después hay que poner su URL HTTPS en `js/backend-config.js`.
 
-
-## Nuevas funciones
-- **Títulos:** jerarquía tipográfica más clara, tamaños responsive y color dorado coherente con la estética NEXUS.
-- **Calendario:** en `calendario.html` puedes añadir eventos con fecha, hora, tipo y descripción. Los eventos se guardan en el navegador con `localStorage`.
-- **Galería:** en `galeria.html` hay un slider con flechas, puntos, miniaturas y filtros por categoría. Puedes añadir tus propias capturas desde el botón **+ Añadir imágenes**.
-- **Importante:** calendario y fotos añadidas desde la web se guardan localmente en cada navegador. Para que todos los miembros vean los mismos eventos/imágenes desde distintos dispositivos hace falta conectarlo a una base de datos/servidor.
+No subas nunca `backend/.env` ni contraseñas reales a GitHub.
