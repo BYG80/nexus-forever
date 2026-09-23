@@ -1,39 +1,33 @@
 /* =========================================================
    NEXUS — GALERÍA
-   World of Warcraft Forever
+   Solo estilos propios de la galería
    ========================================================= */
 
 
 /* =========================================================
-   BARRA DE FILTROS
+   FILTROS
    ========================================================= */
-
-.gallery-toolbar {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 22px;
-}
 
 .gallery-filter {
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
 }
 
 
-/* Botones de filtro */
-
 .filter-btn {
-    border: 1px solid var(--line);
+    appearance: none;
+
+    border: 1px solid var(--line, rgba(255,255,255,.12));
+
     background: #0b0e13;
+
     color: #dce1e9;
 
     padding: 8px 13px;
 
-    border-radius: 99px;
+    border-radius: 999px;
 
     cursor: pointer;
 
@@ -46,31 +40,46 @@
         transform .2s ease;
 }
 
+
 .filter-btn:hover {
     background: rgba(215,173,88,.12);
-    color: var(--gold2);
-    border-color: rgba(215,173,88,.35);
 
-    transform: translateY(-1px);
+    color: var(--gold2, #d7ad58);
+
+    border-color:
+        rgba(215,173,88,.35);
+
+    transform:
+        translateY(-1px);
 }
+
 
 .filter-btn.active {
-    background: rgba(215,173,88,.14);
-    color: var(--gold2);
-    border-color: rgba(215,173,88,.45);
+    background:
+        rgba(215,173,88,.14);
+
+    color:
+        var(--gold2, #d7ad58);
+
+    border-color:
+        rgba(215,173,88,.45);
 }
+
 
 
 /* =========================================================
-   SLIDER PRINCIPAL
+   SLIDER
    ========================================================= */
 
 .gallery-slider {
     position: relative;
 
+    width: 100%;
+
     min-height: 430px;
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:
+        1px solid rgba(255,255,255,.08);
 
     border-radius: 12px;
 
@@ -79,6 +88,7 @@
     background: #07090d;
 
     display: grid;
+
     place-items: center;
 
     box-shadow:
@@ -86,41 +96,34 @@
 }
 
 
-/* Slide */
-
 .gallery-slide {
     display: none;
 
     width: 100%;
+
     height: 430px;
 
     position: relative;
 }
+
 
 .gallery-slide.active {
     display: block;
 }
 
 
-/* Imagen del slider */
-
 .gallery-slide img {
+    display: block;
+
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
 
-    display: block;
-
     cursor: zoom-in;
-
-    transition:
-        transform .25s ease;
 }
 
-.gallery-slide img:hover {
-    transform: scale(1.01);
-}
 
 
 /* =========================================================
@@ -135,7 +138,7 @@
     bottom: 0;
 
     padding:
-        55px
+        60px
         24px
         20px;
 
@@ -148,31 +151,33 @@
     pointer-events: none;
 }
 
+
 .gallery-caption strong {
     display: block;
 
+    color:
+        var(--gold2, #d7ad58);
+
     font-family: Cinzel, serif;
 
-    color: var(--gold2);
-
     font-size: 1.2rem;
-
-    line-height: 1.3;
 }
+
 
 .gallery-caption span {
     display: block;
 
+    margin-top: 5px;
+
     color: #dce1e9;
 
     font-size: .84rem;
-
-    margin-top: 5px;
 }
 
 
+
 /* =========================================================
-   FLECHAS DEL SLIDER PRINCIPAL
+   FLECHAS DEL SLIDER
    ========================================================= */
 
 .slider-arrow {
@@ -180,12 +185,16 @@
 
     top: 50%;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%);
 
-    z-index: 3;
+    z-index: 10;
 
     width: 44px;
+
     height: 44px;
+
+    padding: 0;
 
     border:
         1px solid rgba(255,255,255,.15);
@@ -193,52 +202,54 @@
     border-radius: 50%;
 
     background:
-        rgba(7,9,13,.78);
+        rgba(7,9,13,.82);
 
-    backdrop-filter: blur(4px);
+    color:
+        var(--gold2, #d7ad58);
 
-    color: var(--gold2);
+    font-size: 1.5rem;
 
-    font-size: 1.35rem;
+    line-height: 1;
 
     cursor: pointer;
 
     display: flex;
 
     align-items: center;
-    justify-content: center;
 
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
+    justify-content: center;
 }
+
 
 .slider-arrow:hover {
     background:
-        rgba(215,173,88,.15);
+        rgba(215,173,88,.16);
 
     border-color:
-        rgba(215,173,88,.45);
+        rgba(215,173,88,.5);
 }
+
 
 .slider-arrow.prev {
     left: 14px;
 }
+
 
 .slider-arrow.next {
     right: 14px;
 }
 
 
+
 /* =========================================================
-   PUNTOS
+   DOTS
    ========================================================= */
 
 .gallery-dots {
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     gap: 8px;
@@ -246,34 +257,32 @@
     margin: 14px 0;
 }
 
+
 .gallery-dot {
     width: 8px;
+
     height: 8px;
 
-    border-radius: 50%;
+    padding: 0;
 
     border: 0;
+
+    border-radius: 50%;
 
     background: #59606b;
 
     cursor: pointer;
-
-    padding: 0;
-
-    transition:
-        background .2s ease,
-        transform .2s ease;
 }
 
-.gallery-dot:hover {
-    background: #8b929c;
-}
 
 .gallery-dot.active {
-    background: var(--gold2);
+    background:
+        var(--gold2, #d7ad58);
 
-    transform: scale(1.3);
+    transform:
+        scale(1.3);
 }
+
 
 
 /* =========================================================
@@ -284,15 +293,24 @@
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4, minmax(0, 1fr));
 
     gap: 12px;
 
     margin-top: 22px;
 }
 
+
 .gallery-thumb {
+    appearance: none;
+
+    display: block;
+
+    width: 100%;
+
     height: 115px;
+
+    padding: 0;
 
     border:
         1px solid rgba(255,255,255,.08);
@@ -301,21 +319,15 @@
 
     overflow: hidden;
 
-    cursor: pointer;
-
     background: #10141b;
 
-    position: relative;
+    cursor: pointer;
 
-    transition:
-        transform .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
+    position: relative;
 }
 
-.gallery-thumb:hover {
-    transform: translateY(-3px);
 
+.gallery-thumb:hover {
     border-color:
         rgba(215,173,88,.45);
 
@@ -323,44 +335,50 @@
         0 8px 20px rgba(0,0,0,.3);
 }
 
+
 .gallery-thumb img {
+    display: block;
+
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
 
-    display: block;
-
     transition:
-        transform .35s ease;
+        transform .3s ease;
 }
+
 
 .gallery-thumb:hover img {
-    transform: scale(1.05);
+    transform:
+        scale(1.05);
 }
+
 
 
 /* =========================================================
-   TEXTO DE AYUDA
+   AYUDA
    ========================================================= */
 
 .gallery-help {
-    color: var(--muted);
+    color:
+        var(--muted, #89909c);
 
     font-size: .8rem;
 
-    margin-top: 10px;
-
     line-height: 1.5;
+
+    margin-top: 10px;
 }
 
 
+
 /* =========================================================
-   LIGHTBOX / VISOR AMPLIADO
+   LIGHTBOX
    ========================================================= */
 
 .gallery-lightbox {
-
     position: fixed;
 
     inset: 0;
@@ -369,41 +387,41 @@
 
     display: none;
 
-    align-items: center;
-    justify-content: center;
-
     width: 100vw;
+
     height: 100vh;
 
     box-sizing: border-box;
 
-    padding: 40px;
-
     background:
-        rgba(0,0,0,.94);
+        rgba(0,0,0,.95);
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 50px;
 
     overflow: hidden;
 }
 
-
-/* Cuando está abierto */
 
 .gallery-lightbox.is-open {
     display: flex;
 }
 
 
+
 /* =========================================================
-   CONTENEDOR DEL LIGHTBOX
+   CONTENEDOR DE LA IMAGEN AMPLIADA
    ========================================================= */
 
 .gallery-lightbox-inner {
-
     position: relative;
 
-    width: min(1400px, 92vw);
+    width: 100%;
 
-    height: min(900px, 90vh);
+    height: 100%;
 
     display: flex;
 
@@ -411,24 +429,18 @@
 
     justify-content: center;
 
-    box-sizing: border-box;
+    pointer-events: none;
 }
 
 
-/* =========================================================
-   IMAGEN AMPLIADA
-   ========================================================= */
-
-.gallery-lightbox-inner img,
-.gallery-lightbox img {
-
+.gallery-lightbox-inner img {
     display: block;
 
     width: auto;
 
     height: auto;
 
-    max-width: 90vw;
+    max-width: 88vw;
 
     max-height: 82vh;
 
@@ -437,265 +449,201 @@
     border-radius: 8px;
 
     box-shadow:
-        0 20px 80px rgba(0,0,0,.80);
+        0 20px 80px rgba(0,0,0,.85);
 
-    cursor: default;
+    pointer-events: auto;
 }
 
 
+
 /* =========================================================
-   CAPTION DEL LIGHTBOX
+   TEXTO DEL LIGHTBOX
    ========================================================= */
 
 .gallery-lightbox-caption {
-
     position: absolute;
 
-    left: 0;
-    right: 0;
+    left: 50%;
 
     bottom: 0;
 
+    transform:
+        translateX(-50%);
+
+    width: min(900px, 80vw);
+
     padding:
-        60px
-        25px
-        20px;
+        55px
+        20px
+        15px;
 
     text-align: center;
 
     background:
         linear-gradient(
             transparent,
-            rgba(0,0,0,.92)
+            rgba(0,0,0,.9)
         );
 
     pointer-events: none;
 }
 
-.gallery-lightbox-caption strong {
 
+.gallery-lightbox-caption strong {
     display: block;
 
-    color: var(--gold2);
+    color:
+        var(--gold2, #d7ad58);
 
     font-family: Cinzel, serif;
 
-    font-size: 1.3rem;
-
-    line-height: 1.3;
+    font-size: 1.2rem;
 }
 
-.gallery-lightbox-caption span {
 
+.gallery-lightbox-caption span {
     display: block;
 
     margin-top: 5px;
 
     color: #dce1e9;
 
-    font-size: .9rem;
+    font-size: .85rem;
 }
 
 
+
 /* =========================================================
-   BOTÓN CERRAR
+   CERRAR
    ========================================================= */
 
 .gallery-lightbox-close {
-
     position: fixed;
 
     top: 20px;
+
     right: 25px;
 
-    z-index: 100002;
+    z-index: 100003;
 
     width: 48px;
+
     height: 48px;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
+    padding: 0;
 
     border:
-        1px solid rgba(255,255,255,.20);
+        1px solid rgba(255,255,255,.2);
 
     border-radius: 50%;
 
     background:
-        rgba(10,12,16,.90);
+        rgba(10,12,16,.9);
 
-    color: #ffffff;
+    color: white;
 
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.gallery-lightbox-close:hover {
+    background:
+        rgba(215,173,88,.18);
+
+    border-color:
+        rgba(215,173,88,.6);
+}
+
+
+
+/* =========================================================
+   FLECHAS DEL LIGHTBOX
+   ========================================================= */
+
+.gallery-lightbox-prev,
+.gallery-lightbox-next {
+    position: fixed;
+
+    top: 50%;
+
+    z-index: 100003;
+
+    transform:
+        translateY(-50%);
+
+    width: 54px;
+
+    height: 54px;
+
+    padding: 0;
+
+    border:
+        1px solid rgba(255,255,255,.2);
+
+    border-radius: 50%;
+
+    background:
+        rgba(10,12,16,.9);
+
+    color:
+        var(--gold2, #d7ad58);
+
+    font-size: 1.9rem;
 
     line-height: 1;
 
     cursor: pointer;
 
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 }
 
-.gallery-lightbox-close:hover {
-
-    background:
-        rgba(215,173,88,.18);
-
-    border-color:
-        rgba(215,173,88,.60);
-
-    transform:
-        scale(1.08);
-}
-
-
-/* =========================================================
-   FLECHA ANTERIOR DEL LIGHTBOX
-   ========================================================= */
 
 .gallery-lightbox-prev {
-
-    position: fixed;
-
     left: 25px;
-
-    top: 50%;
-
-    z-index: 100002;
-
-    transform:
-        translateY(-50%);
-
-    width: 54px;
-    height: 54px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid rgba(255,255,255,.20);
-
-    border-radius: 50%;
-
-    background:
-        rgba(10,12,16,.90);
-
-    color: var(--gold2);
-
-    font-size: 1.9rem;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
 }
 
-.gallery-lightbox-prev:hover {
-
-    background:
-        rgba(215,173,88,.18);
-
-    border-color:
-        rgba(215,173,88,.60);
-
-    transform:
-        translateY(-50%)
-        scale(1.08);
-}
-
-
-/* =========================================================
-   FLECHA SIGUIENTE DEL LIGHTBOX
-   ========================================================= */
 
 .gallery-lightbox-next {
-
-    position: fixed;
-
     right: 25px;
-
-    top: 50%;
-
-    z-index: 100002;
-
-    transform:
-        translateY(-50%);
-
-    width: 54px;
-    height: 54px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid rgba(255,255,255,.20);
-
-    border-radius: 50%;
-
-    background:
-        rgba(10,12,16,.90);
-
-    color: var(--gold2);
-
-    font-size: 1.9rem;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
 }
 
-.gallery-lightbox-next:hover {
 
+.gallery-lightbox-prev:hover,
+.gallery-lightbox-next:hover {
     background:
         rgba(215,173,88,.18);
 
     border-color:
-        rgba(215,173,88,.60);
-
-    transform:
-        translateY(-50%)
-        scale(1.08);
+        rgba(215,173,88,.6);
 }
 
 
-/* =========================================================
-   ASEGURAR QUE LOS BOTONES ESTÉN POR ENCIMA DE TODO
-   ========================================================= */
-
-.gallery-lightbox button {
-
-    z-index: 100003;
-
-    pointer-events: auto;
-}
-
 
 /* =========================================================
-   MÓVIL / TABLET
+   TABLET
    ========================================================= */
 
 @media (max-width: 900px) {
 
     .gallery-grid {
-
         grid-template-columns:
-            repeat(3, 1fr);
+            repeat(3, minmax(0, 1fr));
     }
 
 }
+
 
 
 /* =========================================================
@@ -705,118 +653,55 @@
 @media (max-width: 650px) {
 
     .gallery-slider {
-
         min-height: 330px;
-
-        border-radius: 9px;
     }
 
 
     .gallery-slide {
-
         height: 330px;
     }
 
 
-    .gallery-caption {
-
-        padding:
-            45px
-            16px
-            15px;
-    }
-
-
-    .gallery-caption strong {
-
-        font-size: 1rem;
-    }
-
-
-    .gallery-caption span {
-
-        font-size: .76rem;
-    }
-
-
-    .slider-arrow {
-
-        width: 38px;
-        height: 38px;
-
-        font-size: 1.1rem;
-    }
-
-
-    .slider-arrow.prev {
-
-        left: 8px;
-    }
-
-
-    .slider-arrow.next {
-
-        right: 8px;
-    }
-
-
     .gallery-grid {
-
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
 
         gap: 9px;
     }
 
 
     .gallery-thumb {
-
         height: 100px;
     }
 
 
-    /* LIGHTBOX MÓVIL */
-
     .gallery-lightbox {
-
-        padding: 15px;
+        padding: 20px;
     }
 
 
-    .gallery-lightbox-inner {
+    .gallery-lightbox-inner img {
+        max-width: 92vw;
 
-        width: 100%;
-
-        height: 90vh;
-    }
-
-
-    .gallery-lightbox-inner img,
-    .gallery-lightbox img {
-
-        max-width: 94vw;
-
-        max-height: 78vh;
+        max-height: 76vh;
     }
 
 
     .gallery-lightbox-close {
-
         top: 12px;
 
         right: 12px;
 
         width: 42px;
-        height: 42px;
 
-        font-size: 1.5rem;
+        height: 42px;
     }
 
 
     .gallery-lightbox-prev,
     .gallery-lightbox-next {
-
         width: 42px;
+
         height: 42px;
 
         font-size: 1.4rem;
@@ -824,38 +709,16 @@
 
 
     .gallery-lightbox-prev {
-
         left: 8px;
     }
 
 
     .gallery-lightbox-next {
-
         right: 8px;
     }
 
-
-    .gallery-lightbox-caption {
-
-        padding:
-            45px
-            15px
-            15px;
-    }
-
-
-    .gallery-lightbox-caption strong {
-
-        font-size: 1rem;
-    }
-
-
-    .gallery-lightbox-caption span {
-
-        font-size: .78rem;
-    }
-
 }
+
 
 
 /* =========================================================
@@ -864,57 +727,30 @@
 
 @media (max-width: 420px) {
 
-    .gallery-toolbar {
-
-        align-items: flex-start;
-    }
-
-
     .gallery-filter {
-
         width: 100%;
     }
 
 
     .filter-btn {
-
-        padding:
-            7px 10px;
+        padding: 7px 10px;
 
         font-size: .78rem;
     }
 
 
     .gallery-slider {
-
         min-height: 280px;
     }
 
 
     .gallery-slide {
-
         height: 280px;
     }
 
 
-    .gallery-grid {
-
-        gap: 7px;
-    }
-
-
     .gallery-thumb {
-
         height: 85px;
-    }
-
-
-    .gallery-lightbox-inner img,
-    .gallery-lightbox img {
-
-        max-width: 92vw;
-
-        max-height: 72vh;
     }
 
 }
