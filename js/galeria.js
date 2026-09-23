@@ -1,915 +1,921 @@
-/* =========================================================
-   NEXUS — GALERÍA
-   Slider + filtros + miniaturas + Lightbox
-========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =========================================================
+       NEXUS — GALERÍA
+       Slider + filtros + miniaturas + visor ampliado
+       ========================================================= */
+
+    const images = [
+        {
+            src: "./img/galeria/nexus-raids.svg",
+            title: "Noches de Raid",
+            cat: "Raids",
+            desc: "Momentos de progresión de NEXUS"
+        },
+        {
+            src: "./img/galeria/Azeroth01.jpg",
+            title: "Explorando Azeroth",
+            cat: "Azeroth",
+            desc: "Aventuras y exploración por Azeroth"
+        },
+        {
+            src: "./img/galeria/Azeroth02.jpg",
+            title: "Explorando Azeroth",
+            cat: "Azeroth",
+            desc: "Aventuras y exploración por Azeroth"
+        },
+        {
+            src: "./img/galeria/nexus-pvp.svg",
+            title: "Honor y combate",
+            cat: "PvP",
+            desc: "Actividades PvP de la hermandad"
+        },
+        {
+            src: "./img/galeria/nexus-community.svg",
+            title: "Juntos en Forever",
+            cat: "Comunidad",
+            desc: "La comunidad por encima de todo"
+        }
+    ];
 
-document.addEventListener("DOMContentLoaded", function () {
 
+    /* =========================================================
+       ELEMENTOS DE LA GALERÍA
+       ========================================================= */
 
-/* =========================================================
-   IMÁGENES
-========================================================= */
+    const slider = document.getElementById("gallerySlider");
+    const dots = document.getElementById("galleryDots");
+    const thumbs = document.getElementById("galleryThumbs");
+    const filters = document.getElementById("galleryFilters");
 
-const images = [
+    const prevButton = document.getElementById("prevSlide");
+    const nextButton = document.getElementById("nextSlide");
 
-{
-src:"./img/galeria/nexus-raids.svg",
-title:"Noches de Raid",
-cat:"Raids",
-desc:"Momentos de progresión de NEXUS"
-},
 
-{
-src:"./img/galeria/Azeroth01.jpg",
-title:"Explorando Azeroth",
-cat:"Azeroth",
-desc:"Aventuras y exploración por Azeroth"
-},
+    /* =========================================================
+       ELEMENTOS DEL LIGHTBOX
+       ========================================================= */
 
-{
-src:"./img/galeria/Azeroth02.jpg",
-title:"Explorando Azeroth",
-cat:"Azeroth",
-desc:"Aventuras y exploración por Azeroth"
-},
+    const lightbox = document.getElementById("galleryLightbox");
 
-{
-src:"./img/galeria/nexus-pvp.svg",
-title:"Honor y combate",
-cat:"PvP",
-desc:"Actividades PvP de la hermandad"
-},
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxCaption = document.getElementById("lightboxCaption");
 
-{
-src:"./img/galeria/nexus-community.svg",
-title:"Juntos en Forever",
-cat:"Comunidad",
-desc:"La comunidad por encima de todo"
-}
+    const lightboxClose = document.getElementById("lightboxClose");
+    const lightboxPrev = document.getElementById("lightboxPrev");
+    const lightboxNext = document.getElementById("lightboxNext");
 
-];
 
+    /* =========================================================
+       COMPROBACIÓN
+       ========================================================= */
 
-/* =========================================================
-   ESTADO
-========================================================= */
+    if (
+        !slider ||
+        !dots ||
+        !thumbs ||
+        !filters ||
+        !prevButton ||
+        !nextButton
+    ) {
+        console.error("NEXUS GALERÍA: faltan elementos HTML necesarios.");
+        return;
+    }
 
-let filter = "Todas";
 
-let index = 0;
+    /* =========================================================
+       VARIABLES
+       ========================================================= */
 
+    let filter = "Todas";
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+    let index = 0;
 
-const slider =
-document.getElementById("gallerySlider");
+    /*
+     * Índice independiente del visor ampliado.
+     * Esto es importante para que las flechas del lightbox
+     * funcionen correctamente.
+     */
+    let lightboxIndex = 0;
 
-const dots =
-document.getElementById("galleryDots");
 
-const thumbs =
-document.getElementById("galleryThumbs");
+    /* =========================================================
+       IMÁGENES VISIBLES
+       ========================================================= */
 
-const filters =
-document.getElementById("galleryFilters");
+    function visibleImages() {
 
-const prev =
-document.getElementById("prevSlide");
+        return images.filter(image => {
 
-const next =
-document.getElementById("nextSlide");
+            return filter === "Todas" || image.cat === filter;
 
+        });
 
-/* LIGHTBOX */
+    }
 
-const lightbox =
-document.getElementById("galleryLightbox");
 
-const lightboxImage =
-document.getElementById("galleryLightboxImage");
+    /* =========================================================
+       FILTROS
+       ========================================================= */
 
-const lightboxCaption =
-document.getElementById("galleryLightboxCaption");
+    function renderFilters() {
 
-const lightboxClose =
-document.getElementById("galleryLightboxClose");
+        filters.innerHTML = "";
 
-const lightboxPrev =
-document.getElementById("galleryLightboxPrev");
+        const categories = [
+            "Todas",
+            ...new Set(
+                images
+                    .map(image => image.cat)
+                    .filter(Boolean)
+            )
+        ];
 
-const lightboxNext =
-document.getElementById("galleryLightboxNext");
 
+        categories.forEach(category => {
 
-/* =========================================================
-   COMPROBACIÓN
-========================================================= */
+            const button = document.createElement("button");
 
-if(
-!slider ||
-!dots ||
-!thumbs ||
-!filters ||
-!prev ||
-!next
-){
+            button.type = "button";
 
-console.error(
-"NEXUS Galería: faltan elementos HTML."
-);
+            button.className =
+                "filter-btn" +
+                (category === filter ? " active" : "");
 
-return;
+            button.textContent = category;
 
-}
+            button.setAttribute(
+                "aria-pressed",
+                category === filter ? "true" : "false"
+            );
 
 
-/* =========================================================
-   IMÁGENES VISIBLES
-========================================================= */
+            button.addEventListener("click", () => {
 
-function visibleImages(){
+                filter = category;
 
-return images.filter(function(image){
+                index = 0;
 
-return (
-filter === "Todas" ||
-image.cat === filter
-);
+                render();
 
-});
+            });
 
-}
 
+            filters.appendChild(button);
 
-/* =========================================================
-   FILTROS
-========================================================= */
+        });
 
-function renderFilters(){
+    }
 
-filters.innerHTML = "";
 
-const categories = [
-"Todas",
-...new Set(
-images.map(function(image){
-return image.cat;
-})
-)
-];
+    /* =========================================================
+       RENDER PRINCIPAL
+       ========================================================= */
 
+    function render() {
 
-categories.forEach(function(category){
+        const currentImages = visibleImages();
 
-const button =
-document.createElement("button");
 
+        renderFilters();
 
-button.type = "button";
 
-button.className =
-"filter-btn" +
-(
-category === filter
-? " active"
-: ""
-);
+        /* -----------------------------------------
+           LIMPIAR SLIDES
+           ----------------------------------------- */
 
+        slider
+            .querySelectorAll(".gallery-slide")
+            .forEach(slide => slide.remove());
 
-button.textContent =
-category;
 
+        dots.innerHTML = "";
 
-button.setAttribute(
-"aria-pressed",
-category === filter
-? "true"
-: "false"
-);
+        thumbs.innerHTML = "";
 
 
-button.addEventListener(
-"click",
-function(){
+        /* -----------------------------------------
+           SIN IMÁGENES
+           ----------------------------------------- */
 
-filter = category;
+        if (!currentImages.length) {
 
-index = 0;
+            return;
 
-render();
+        }
 
-}
-);
 
+        /* -----------------------------------------
+           ASEGURAR ÍNDICE CORRECTO
+           ----------------------------------------- */
 
-filters.appendChild(button);
+        if (index >= currentImages.length) {
 
-});
+            index = 0;
 
-}
+        }
 
 
-/* =========================================================
-   ABRIR LIGHTBOX
-========================================================= */
+        if (index < 0) {
 
-function openLightbox(image){
+            index = currentImages.length - 1;
 
-if(
-!lightbox ||
-!lightboxImage
-){
+        }
 
-console.error(
-"NEXUS Galería: no existe el Lightbox."
-);
 
-return;
+        /* =====================================================
+           CREAR SLIDES
+           ===================================================== */
 
-}
+        currentImages.forEach((image, i) => {
 
+            const slide = document.createElement("div");
 
-lightboxImage.src =
-image.src;
+            slide.className =
+                "gallery-slide" +
+                (i === index ? " active" : "");
 
-lightboxImage.alt =
-image.title;
 
+            const img = document.createElement("img");
 
-if(lightboxCaption){
+            img.src = image.src;
 
-lightboxCaption.innerHTML =
-"<strong>" +
-image.title +
-"</strong>" +
-"<span>" +
-image.desc +
-"</span>";
+            img.alt = image.title;
 
-}
+            img.loading = i === index ? "eager" : "lazy";
 
 
-/*
- * Mostrar
- */
+            /* -----------------------------------------
+               ERROR DE IMAGEN
+               ----------------------------------------- */
 
-lightbox.classList.add(
-"is-open"
-);
+            img.addEventListener("error", () => {
 
+                console.error(
+                    "NEXUS GALERÍA: no se pudo cargar:",
+                    image.src
+                );
 
-lightbox.setAttribute(
-"aria-hidden",
-"false"
-);
+            });
 
 
-/*
- * Bloquear scroll
- */
+            /* -----------------------------------------
+               CAPTION
+               ----------------------------------------- */
 
-document.body.style.overflow =
-"hidden";
+            const caption = document.createElement("div");
 
-}
+            caption.className = "gallery-caption";
 
 
-/* =========================================================
-   CERRAR LIGHTBOX
-========================================================= */
+            const title = document.createElement("strong");
 
-function closeLightbox(){
+            title.textContent = image.title;
 
-if(!lightbox){
 
-return;
+            const description = document.createElement("span");
 
-}
+            description.textContent =
+                image.desc || "";
 
 
-lightbox.classList.remove(
-"is-open"
-);
+            caption.appendChild(title);
 
+            caption.appendChild(description);
 
-lightbox.setAttribute(
-"aria-hidden",
-"true"
-);
 
+            slide.appendChild(img);
 
-lightboxImage.src = "";
+            slide.appendChild(caption);
 
-lightboxImage.alt = "";
 
+            /* -----------------------------------------
+               CLICK EN LA IMAGEN
+               ABRIR LIGHTBOX
+               ----------------------------------------- */
 
-document.body.style.overflow =
-"";
+            img.addEventListener("click", () => {
 
-}
+                openLightbox(i);
 
+            });
 
-/* =========================================================
-   BOTÓN CERRAR
-========================================================= */
 
-if(lightboxClose){
+            /*
+             * También permitimos hacer clic en todo el slide.
+             */
+            slide.style.cursor = "zoom-in";
 
-lightboxClose.addEventListener(
-"click",
-function(event){
 
-event.stopPropagation();
+            slide.addEventListener("click", event => {
 
-closeLightbox();
+                /*
+                 * Si se ha pulsado una flecha principal,
+                 * no abrir el lightbox.
+                 */
+                if (
+                    event.target.closest(".slider-arrow")
+                ) {
+                    return;
+                }
 
-}
-);
 
-}
+                openLightbox(i);
 
+            });
 
-/* =========================================================
-   FONDO LIGHTBOX
-========================================================= */
 
-if(lightbox){
+            /*
+             * Insertar antes de las flechas.
+             */
+            slider.insertBefore(slide, prevButton);
 
-lightbox.addEventListener(
-"click",
-function(event){
+        });
 
-/*
- * Solo cerrar si se pulsa
- * directamente el fondo.
- */
 
-if(
-event.target === lightbox
-){
+        /* =====================================================
+           DOTS
+           ===================================================== */
 
-closeLightbox();
+        currentImages.forEach((image, i) => {
 
-}
+            const dot = document.createElement("button");
 
-}
-);
+            dot.type = "button";
 
-}
+            dot.className =
+                "gallery-dot" +
+                (i === index ? " active" : "");
 
 
-/* =========================================================
-   FLECHA ANTERIOR LIGHTBOX
-========================================================= */
+            dot.setAttribute(
+                "aria-label",
+                "Mostrar imagen " + (i + 1)
+            );
 
-if(lightboxPrev){
 
-lightboxPrev.addEventListener(
-"click",
-function(event){
+            dot.addEventListener("click", event => {
 
-event.stopPropagation();
+                event.stopPropagation();
 
-changeLightbox(-1);
+                index = i;
 
-}
-);
+                render();
 
-}
+            });
 
 
-/* =========================================================
-   FLECHA SIGUIENTE LIGHTBOX
-========================================================= */
+            dots.appendChild(dot);
 
-if(lightboxNext){
+        });
 
-lightboxNext.addEventListener(
-"click",
-function(event){
 
-event.stopPropagation();
+        /* =====================================================
+           MINIATURAS
+           ===================================================== */
 
-changeLightbox(1);
+        currentImages.forEach((image, i) => {
 
-}
-);
+            const thumb = document.createElement("button");
 
-}
+            thumb.type = "button";
 
+            thumb.className = "gallery-thumb";
 
-/* =========================================================
-   CAMBIAR LIGHTBOX
-========================================================= */
+            thumb.setAttribute(
+                "aria-label",
+                "Abrir " + image.title
+            );
 
-function changeLightbox(amount){
 
-const current =
-visibleImages();
+            const thumbImg = document.createElement("img");
 
+            thumbImg.src = image.src;
 
-if(!current.length){
+            thumbImg.alt = image.title;
 
-return;
+            thumbImg.loading = "lazy";
 
-}
 
+            thumb.appendChild(thumbImg);
 
-index =
-(
-index +
-amount +
-current.length
-) %
-current.length;
 
+            thumb.addEventListener("click", event => {
 
-render();
+                event.stopPropagation();
 
+                index = i;
 
-openLightbox(
-current[index]
-);
+                render();
 
-}
+                /*
+                 * Al hacer clic en miniatura,
+                 * también abrimos la imagen ampliada.
+                 */
+                openLightbox(i);
 
+            });
 
-/* =========================================================
-   TECLADO
-========================================================= */
 
-document.addEventListener(
-"keydown",
-function(event){
+            thumbs.appendChild(thumb);
 
+        });
 
-/*
- * ESC
- */
 
-if(
-event.key === "Escape"
-){
+        /* =====================================================
+           VOLVER A PONER LAS FLECHAS DEL SLIDER
+           ===================================================== */
 
-if(
-lightbox &&
-lightbox.classList.contains(
-"is-open"
-)
-){
+        slider.appendChild(prevButton);
 
-closeLightbox();
+        slider.appendChild(nextButton);
 
-}
+    }
 
-return;
 
-}
+    /* =========================================================
+       MOVER SLIDER PRINCIPAL
+       ========================================================= */
 
+    function move(amount) {
 
-/*
- * Si el lightbox está abierto
- */
+        const currentImages = visibleImages();
 
-if(
-lightbox &&
-lightbox.classList.contains(
-"is-open"
-)
-){
+        if (!currentImages.length) {
 
-if(
-event.key === "ArrowLeft"
-){
+            return;
 
-changeLightbox(-1);
+        }
 
-return;
 
-}
+        index =
+            (index + amount + currentImages.length) %
+            currentImages.length;
 
 
-if(
-event.key === "ArrowRight"
-){
+        render();
 
-changeLightbox(1);
+    }
 
-return;
 
-}
+    /* =========================================================
+       FLECHAS SLIDER PRINCIPAL
+       ========================================================= */
 
+    prevButton.addEventListener("click", event => {
 
-return;
+        event.stopPropagation();
 
-}
+        move(-1);
 
+    });
 
-/*
- * Slider normal
- */
 
-if(
-event.key === "ArrowLeft"
-){
+    nextButton.addEventListener("click", event => {
 
-move(-1);
+        event.stopPropagation();
 
-}
+        move(1);
 
+    });
 
-if(
-event.key === "ArrowRight"
-){
 
-move(1);
+    /* =========================================================
+       LIGHTBOX
+       ========================================================= */
 
-}
+    function openLightbox(imageIndex) {
 
-}
-);
+        const currentImages = visibleImages();
 
+        if (
+            !lightbox ||
+            !lightboxImage ||
+            !currentImages.length
+        ) {
 
-/* =========================================================
-   RENDER
-========================================================= */
+            return;
 
-function render(){
+        }
 
-const current =
-visibleImages();
 
+        if (
+            imageIndex < 0 ||
+            imageIndex >= currentImages.length
+        ) {
 
-/*
- * Filtros
- */
+            imageIndex = 0;
 
-renderFilters();
+        }
 
 
-/*
- * Eliminar slides anteriores
- */
+        lightboxIndex = imageIndex;
 
-slider
-.querySelectorAll(
-".gallery-slide"
-)
-.forEach(function(slide){
 
-slide.remove();
+        updateLightbox();
 
-});
 
+        lightbox.classList.add("is-open");
 
-/*
- * Limpiar
- */
+        lightbox.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
-dots.innerHTML = "";
 
-thumbs.innerHTML = "";
+        /*
+         * Evitar scroll de la página mientras
+         * el visor está abierto.
+         */
+        document.body.style.overflow = "hidden";
 
+    }
 
-if(!current.length){
 
-return;
+    /* =========================================================
+       ACTUALIZAR LIGHTBOX
+       ========================================================= */
 
-}
+    function updateLightbox() {
 
+        const currentImages = visibleImages();
 
-/*
- * Corregir índice
- */
+        if (
+            !currentImages.length ||
+            !lightboxImage
+        ) {
 
-if(
-index >= current.length
-){
+            return;
 
-index = 0;
+        }
 
-}
 
+        if (lightboxIndex >= currentImages.length) {
 
-/* =======================================================
-   CREAR IMÁGENES
-======================================================= */
+            lightboxIndex = 0;
 
-current.forEach(
-function(image,i){
+        }
 
 
-/* -------------------------------------------------------
-   SLIDE
-------------------------------------------------------- */
+        if (lightboxIndex < 0) {
 
-const slide =
-document.createElement("div");
+            lightboxIndex =
+                currentImages.length - 1;
 
+        }
 
-slide.className =
-"gallery-slide" +
-(
-i === index
-? " active"
-: ""
-);
 
+        const image =
+            currentImages[lightboxIndex];
 
-/* -------------------------------------------------------
-   IMAGEN
-------------------------------------------------------- */
 
-const img =
-document.createElement("img");
+        lightboxImage.src = image.src;
 
+        lightboxImage.alt = image.title;
 
-img.src =
-image.src;
 
-img.alt =
-image.title;
+        if (lightboxCaption) {
 
-img.draggable =
-false;
+            lightboxCaption.innerHTML = "";
 
+            const strong =
+                document.createElement("strong");
 
-/*
- * Cursor lupa
- */
+            strong.textContent = image.title;
 
-img.style.cursor =
-"zoom-in";
 
+            const span =
+                document.createElement("span");
 
-/*
- * CLICK IMAGEN
- */
+            span.textContent =
+                image.desc || "";
 
-img.addEventListener(
-"click",
-function(event){
 
-event.stopPropagation();
+            lightboxCaption.appendChild(strong);
 
-index = i;
+            lightboxCaption.appendChild(span);
 
-openLightbox(
-image
-);
+        }
 
-}
-);
+    }
 
 
-/*
- * Error de imagen
- */
+    /* =========================================================
+       CERRAR LIGHTBOX
+       ========================================================= */
 
-img.addEventListener(
-"error",
-function(){
+    function closeLightbox() {
 
-console.error(
-"No se pudo cargar la imagen:",
-image.src
-);
+        if (!lightbox) {
 
-}
-);
+            return;
 
+        }
 
-/* -------------------------------------------------------
-   CAPTION
-------------------------------------------------------- */
 
-const caption =
-document.createElement("div");
+        lightbox.classList.remove("is-open");
 
+        lightbox.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
-caption.className =
-"gallery-caption";
 
+        document.body.style.overflow = "";
 
-caption.innerHTML =
-"<strong>" +
-image.title +
-"</strong>" +
-"<span>" +
-image.desc +
-"</span>";
+    }
 
 
-/* -------------------------------------------------------
-   AÑADIR
-------------------------------------------------------- */
+    /* =========================================================
+       LIGHTBOX — IMAGEN ANTERIOR
+       ========================================================= */
 
-slide.appendChild(img);
+    function lightboxPrevious() {
 
-slide.appendChild(caption);
+        const currentImages = visibleImages();
 
+        if (!currentImages.length) {
 
-slider.insertBefore(
-slide,
-prev
-);
+            return;
 
+        }
 
-/* =====================================================
-   DOT
-===================================================== */
 
-const dot =
-document.createElement("button");
+        lightboxIndex =
+            (lightboxIndex - 1 + currentImages.length) %
+            currentImages.length;
 
 
-dot.type =
-"button";
+        updateLightbox();
 
+    }
 
-dot.className =
-"gallery-dot" +
-(
-i === index
-? " active"
-: ""
-);
 
+    /* =========================================================
+       LIGHTBOX — IMAGEN SIGUIENTE
+       ========================================================= */
 
-dot.setAttribute(
-"aria-label",
-"Ver imagen " + (i + 1)
-);
+    function lightboxNextImage() {
 
+        const currentImages = visibleImages();
 
-dot.addEventListener(
-"click",
-function(){
+        if (!currentImages.length) {
 
-index = i;
+            return;
 
-render();
+        }
 
-}
-);
 
+        lightboxIndex =
+            (lightboxIndex + 1) %
+            currentImages.length;
 
-dots.appendChild(dot);
 
+        updateLightbox();
 
-/* =====================================================
-   MINIATURA
-===================================================== */
+    }
 
-const thumb =
-document.createElement("button");
 
+    /* =========================================================
+       EVENTO FLECHA IZQUIERDA LIGHTBOX
+       ========================================================= */
 
-thumb.type =
-"button";
+    if (lightboxPrev) {
 
+        lightboxPrev.addEventListener("click", event => {
 
-thumb.className =
-"gallery-thumb";
+            event.preventDefault();
 
+            event.stopPropagation();
 
-thumb.setAttribute(
-"aria-label",
-"Ampliar " +
-image.title
-);
+            lightboxPrevious();
 
+        });
 
-const thumbImg =
-document.createElement("img");
+    }
 
 
-thumbImg.src =
-image.src;
+    /* =========================================================
+       EVENTO FLECHA DERECHA LIGHTBOX
+       ========================================================= */
 
-thumbImg.alt =
-image.title;
+    if (lightboxNext) {
 
-thumbImg.draggable =
-false;
+        lightboxNext.addEventListener("click", event => {
 
+            event.preventDefault();
 
-thumb.appendChild(
-thumbImg
-);
+            event.stopPropagation();
 
+            lightboxNextImage();
 
-/*
- * CLICK MINIATURA
- */
+        });
 
-thumb.addEventListener(
-"click",
-function(event){
+    }
 
-event.stopPropagation();
 
-index = i;
+    /* =========================================================
+       BOTÓN CERRAR
+       ========================================================= */
 
-render();
+    if (lightboxClose) {
 
-openLightbox(
-image
-);
+        lightboxClose.addEventListener("click", event => {
 
-}
-);
+            event.preventDefault();
 
+            event.stopPropagation();
 
-thumbs.appendChild(
-thumb
-);
+            closeLightbox();
 
-}
-);
+        });
 
+    }
 
-/*
- * Volver a colocar flechas
- */
 
-slider.appendChild(prev);
+    /* =========================================================
+       CLICK FUERA DE LA IMAGEN
+       ========================================================= */
 
-slider.appendChild(next);
+    if (lightbox) {
 
-}
+        lightbox.addEventListener("click", event => {
 
+            /*
+             * Solo cerramos si se ha pulsado
+             * directamente sobre el fondo.
+             */
+            if (event.target === lightbox) {
 
-/* =========================================================
-   SLIDER NORMAL
-========================================================= */
+                closeLightbox();
 
-function move(amount){
+            }
 
-const current =
-visibleImages();
+        });
 
+    }
 
-if(!current.length){
 
-return;
+    /* =========================================================
+       EVITAR QUE EL CLICK EN LA IMAGEN CIERRE EL LIGHTBOX
+       ========================================================= */
 
-}
+    if (lightboxImage) {
 
+        lightboxImage.addEventListener("click", event => {
 
-index =
-(
-index +
-amount +
-current.length
-) %
-current.length;
+            event.stopPropagation();
 
+        });
 
-render();
+    }
 
-}
 
+    if (lightboxCaption) {
 
-/* =========================================================
-   FLECHA ANTERIOR
-========================================================= */
+        lightboxCaption.addEventListener("click", event => {
 
-prev.addEventListener(
-"click",
-function(event){
+            event.stopPropagation();
 
-event.stopPropagation();
+        });
 
-move(-1);
+    }
 
-}
-);
 
+    /* =========================================================
+       TECLADO
+       ========================================================= */
 
-/* =========================================================
-   FLECHA SIGUIENTE
-========================================================= */
+    document.addEventListener("keydown", event => {
 
-next.addEventListener(
-"click",
-function(event){
+        /*
+         * Si el lightbox está abierto
+         */
+        if (
+            lightbox &&
+            lightbox.classList.contains("is-open")
+        ) {
 
-event.stopPropagation();
+            if (event.key === "ArrowLeft") {
 
-move(1);
+                event.preventDefault();
 
-}
-);
+                lightboxPrevious();
 
+                return;
 
-/* =========================================================
-   INICIAR
-========================================================= */
+            }
 
-render();
 
+            if (event.key === "ArrowRight") {
+
+                event.preventDefault();
+
+                lightboxNextImage();
+
+                return;
+
+            }
+
+
+            if (event.key === "Escape") {
+
+                event.preventDefault();
+
+                closeLightbox();
+
+                return;
+
+            }
+
+        }
+
+
+        /*
+         * Si el lightbox está cerrado,
+         * las flechas controlan el slider normal.
+         */
+        if (event.key === "ArrowLeft") {
+
+            move(-1);
+
+        }
+
+
+        if (event.key === "ArrowRight") {
+
+            move(1);
+
+        }
+
+    });
+
+
+    /* =========================================================
+       SWIPE / TÁCTIL
+       ========================================================= */
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+
+    if (lightbox) {
+
+        lightbox.addEventListener(
+            "touchstart",
+            event => {
+
+                touchStartX =
+                    event.changedTouches[0].screenX;
+
+            },
+            { passive: true }
+        );
+
+
+        lightbox.addEventListener(
+            "touchend",
+            event => {
+
+                touchEndX =
+                    event.changedTouches[0].screenX;
+
+
+                const difference =
+                    touchEndX - touchStartX;
+
+
+                /*
+                 * Deslizamiento hacia la izquierda
+                 */
+                if (difference < -50) {
+
+                    lightboxNextImage();
+
+                }
+
+
+                /*
+                 * Deslizamiento hacia la derecha
+                 */
+                if (difference > 50) {
+
+                    lightboxPrevious();
+
+                }
+
+            },
+            { passive: true }
+        );
+
+    }
+
+
+    /* =========================================================
+       INICIAR GALERÍA
+       ========================================================= */
+
+    render();
 
 });
