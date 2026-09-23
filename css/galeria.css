@@ -1,23 +1,367 @@
 
-.gallery-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
-.gallery-filter{display:flex;gap:7px;flex-wrap:wrap}
-.filter-btn{border:1px solid var(--line);background:#0b0e13;color:#dce1e9;padding:7px 11px;border-radius:99px;cursor:pointer}
-.filter-btn.active,.filter-btn:hover{background:rgba(215,173,88,.12);color:var(--gold2)}
-.gallery-slider{position:relative;min-height:430px;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;background:#07090d;display:grid;place-items:center}
-.gallery-slide{display:none;width:100%;height:430px;position:relative}
-.gallery-slide.active{display:block}
-.gallery-slide img{width:100%;height:100%;object-fit:cover}
-.gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:30px 22px 18px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
-.gallery-caption strong{font-family:Cinzel,serif;color:var(--gold2);font-size:1.15rem}
-.gallery-caption span{display:block;color:#dce1e9;font-size:.82rem;margin-top:3px}
-.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:rgba(7,9,13,.75);color:var(--gold2);font-size:1.3rem;cursor:pointer}
-.slider-arrow.prev{left:12px}.slider-arrow.next{right:12px}
-.gallery-dots{display:flex;justify-content:center;gap:7px;margin:12px 0}
-.gallery-dot{width:8px;height:8px;border-radius:50%;border:0;background:#59606b;cursor:pointer;padding:0}
-.gallery-dot.active{background:var(--gold2);transform:scale(1.2)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
-.gallery-thumb{height:110px;border:1px solid rgba(255,255,255,.08);border-radius:7px;overflow:hidden;cursor:pointer;background:#10141b}
-.gallery-thumb img{width:100%;height:100%;object-fit:cover}
-.gallery-help{color:var(--muted);font-size:.8rem;margin-top:10px}
-@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:520px){.gallery-slider,.gallery-slide{height:300px;min-height:300px}.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+/* =========================================================
+   NEXUS — GALERÍA
+   ========================================================= */
+
+.gallery-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.gallery-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  border: 1px solid var(--line);
+  background: #0b0e13;
+  color: #dce1e9;
+  padding: 8px 13px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(215,173,88,.12);
+  color: var(--gold2);
+  border-color: rgba(215,173,88,.35);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: rgba(215,173,88,.14);
+  color: var(--gold2);
+  border-color: rgba(215,173,88,.45);
+}
+
+
+/* =========================================================
+   SLIDER PRINCIPAL
+   ========================================================= */
+
+.gallery-slider {
+  position: relative;
+  min-height: 430px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #07090d;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+.gallery-slide {
+  display: none;
+  width: 100%;
+  height: 430px;
+  position: relative;
+}
+
+.gallery-slide.active {
+  display: block;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* =========================================================
+   CAPTION
+   ========================================================= */
+
+.gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 55px 24px 20px;
+  background: linear-gradient(
+    transparent,
+    rgba(0,0,0,.92)
+  );
+}
+
+.gallery-caption strong {
+  display: block;
+  font-family: Cinzel, serif;
+  color: var(--gold2);
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.gallery-caption span {
+  display: block;
+  color: #dce1e9;
+  font-size: .84rem;
+  margin-top: 5px;
+}
+
+
+/* =========================================================
+   FLECHAS
+   ========================================================= */
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+
+  background: rgba(7,9,13,.78);
+  backdrop-filter: blur(4px);
+
+  color: var(--gold2);
+  font-size: 1.35rem;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.slider-arrow:hover {
+  background: rgba(215,173,88,.15);
+  border-color: rgba(215,173,88,.45);
+}
+
+.slider-arrow.prev {
+  left: 14px;
+}
+
+.slider-arrow.next {
+  right: 14px;
+}
+
+
+/* =========================================================
+   PUNTOS DEL SLIDER
+   ========================================================= */
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.gallery-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  border: 0;
+
+  background: #59606b;
+
+  cursor: pointer;
+  padding: 0;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.gallery-dot:hover {
+  background: #8b929c;
+}
+
+.gallery-dot.active {
+  background: var(--gold2);
+  transform: scale(1.3);
+}
+
+
+/* =========================================================
+   MINIATURAS
+   ========================================================= */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.gallery-thumb {
+  height: 115px;
+
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  background: #10141b;
+
+  position: relative;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.gallery-thumb:hover {
+  transform: translateY(-3px);
+  border-color: rgba(215,173,88,.45);
+  box-shadow: 0 8px 20px rgba(0,0,0,.3);
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transition: transform .35s ease;
+}
+
+.gallery-thumb:hover img {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   TEXTO DE AYUDA
+   ========================================================= */
+
+.gallery-help {
+  color: var(--muted);
+  font-size: .8rem;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .gallery-slider {
+    min-height: 330px;
+    border-radius: 9px;
+  }
+
+  .gallery-slide {
+    height: 330px;
+  }
+
+  .gallery-caption {
+    padding: 45px 16px 15px;
+  }
+
+  .gallery-caption strong {
+    font-size: 1rem;
+  }
+
+  .gallery-caption span {
+    font-size: .76rem;
+  }
+
+  .slider-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  .slider-arrow.prev {
+    left: 8px;
+  }
+
+  .slider-arrow.next {
+    right: 8px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  .gallery-thumb {
+    height: 100px;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .gallery-toolbar {
+    align-items: flex-start;
+  }
+
+  .gallery-filter {
+    width: 100%;
+  }
+
+  .filter-btn {
+    padding: 7px 10px;
+    font-size: .78rem;
+  }
+
+  .gallery-slider {
+    min-height: 280px;
+  }
+
+  .gallery-slide {
+    height: 280px;
+  }
+
+  .gallery-grid {
+    gap: 7px;
+  }
+
+  .gallery-thumb {
+    height: 85px;
+  }
+
+}
