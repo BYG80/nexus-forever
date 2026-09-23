@@ -1,13 +1,15 @@
+
+/* =========================================================
+   NEXUS — GALERÍA
+   Slider + filtros + miniaturas + Lightbox
+========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================================
-     NEXUS — GALERÍA
-     ========================================================= */
 
-
-  /* =========================================================
+  /* =======================================================
      IMÁGENES
-     ========================================================= */
+  ======================================================= */
 
   const images = [
 
@@ -49,18 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
 
-  /* =========================================================
+  /* =======================================================
      ESTADO
-     ========================================================= */
+  ======================================================= */
 
   let filter = "Todas";
 
   let index = 0;
 
 
-  /* =========================================================
+  /* =======================================================
      ELEMENTOS HTML
-     ========================================================= */
+  ======================================================= */
 
   const slider =
     document.getElementById("gallerySlider");
@@ -81,9 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("nextSlide");
 
 
-  /* =========================================================
-     LIGHTBOX
-     ========================================================= */
+  /* LIGHTBOX */
 
   const lightbox =
     document.getElementById("galleryLightbox");
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("galleryLightboxClose");
 
 
-  /* =========================================================
-     COMPROBAR HTML
-     ========================================================= */
+  /* =======================================================
+     COMPROBAR ELEMENTOS
+  ======================================================= */
 
   if (
     !slider ||
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ) {
 
     console.error(
-      "NEXUS Gallery: faltan elementos HTML de la galería."
+      "NEXUS Galería: faltan elementos HTML."
     );
 
     return;
@@ -120,99 +120,164 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================================================
-     IMÁGENES VISIBLES SEGÚN FILTRO
-     ========================================================= */
+  /* =======================================================
+     IMÁGENES VISIBLES
+  ======================================================= */
 
   function visibleImages() {
 
     return images.filter(
+
       image =>
         filter === "Todas" ||
         image.cat === filter
+
     );
 
   }
 
 
-  /* =========================================================
+  /* =======================================================
+     FILTROS
+  ======================================================= */
+
+  function renderFilters() {
+
+    filters.innerHTML = "";
+
+
+    const categories = [
+
+      "Todas",
+
+      ...new Set(
+
+        images
+          .map(image => image.cat)
+          .filter(Boolean)
+
+      )
+
+    ];
+
+
+    categories.forEach(category => {
+
+      const button =
+        document.createElement("button");
+
+
+      button.type = "button";
+
+      button.className =
+        "filter-btn" +
+        (
+          category === filter
+            ? " active"
+            : ""
+        );
+
+
+      button.textContent = category;
+
+
+      button.setAttribute(
+
+        "aria-pressed",
+
+        category === filter
+          ? "true"
+          : "false"
+
+      );
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          filter = category;
+
+          index = 0;
+
+          render();
+
+        }
+      );
+
+
+      filters.appendChild(button);
+
+    });
+
+  }
+
+
+  /* =======================================================
      ABRIR LIGHTBOX
-     ========================================================= */
+  ======================================================= */
 
   function openLightbox(image) {
 
     if (
       !lightbox ||
-      !lightboxImage ||
-      !image
+      !lightboxImage
     ) {
+
+      console.error(
+        "NEXUS Galería: Lightbox no encontrado."
+      );
 
       return;
 
     }
 
 
-    /*
-     * Ponemos la imagen seleccionada
-     * en el visor.
-     */
-
     lightboxImage.src =
       image.src;
 
 
     lightboxImage.alt =
-      image.title ||
-      "Imagen de NEXUS";
+      image.title;
 
-
-    /*
-     * Título.
-     */
 
     if (lightboxCaption) {
 
-      lightboxCaption.textContent =
-        image.title ||
-        "";
+      lightboxCaption.innerHTML = `
+
+        <strong>
+          ${image.title}
+        </strong>
+
+        <span>
+          ${image.desc}
+        </span>
+
+      `;
 
     }
 
 
-    /*
-     * Abrimos el diálogo como modal.
-     */
+    lightbox.classList.add(
+      "is-open"
+    );
 
-    if (
-      typeof lightbox.showModal === "function"
-    ) {
 
-      if (!lightbox.open) {
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
 
-        lightbox.showModal();
 
-      }
-
-    } else {
-
-      /*
-       * Fallback para navegadores
-       * antiguos que no soporten dialog.
-       */
-
-      lightbox.setAttribute(
-        "open",
-        ""
-      );
-
-    }
+    document.body.style.overflow =
+      "hidden";
 
   }
 
 
-  /* =========================================================
+  /* =======================================================
      CERRAR LIGHTBOX
-     ========================================================= */
+  ======================================================= */
 
   function closeLightbox() {
 
@@ -221,48 +286,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    if (
-      typeof lightbox.close === "function"
-    ) {
+    lightbox.classList.remove(
+      "is-open"
+    );
 
-      if (lightbox.open) {
 
-        lightbox.close();
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
 
-      }
 
-    } else {
-
-      lightbox.removeAttribute(
-        "open"
-      );
-
-    }
+    document.body.style.overflow =
+      "";
 
   }
 
 
-  /* =========================================================
+  /* =======================================================
      BOTÓN CERRAR
-     ========================================================= */
+  ======================================================= */
 
   if (lightboxClose) {
 
     lightboxClose.addEventListener(
       "click",
-      () => {
-
-        closeLightbox();
-
-      }
+      closeLightbox
     );
 
   }
 
 
-  /* =========================================================
-     CERRAR HACIENDO CLICK EN EL FONDO
-     ========================================================= */
+  /* =======================================================
+     CLIC EN FONDO
+  ======================================================= */
 
   if (lightbox) {
 
@@ -271,9 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
       event => {
 
         /*
-         * Si el usuario pulsa exactamente
-         * sobre el fondo del dialog,
-         * cerramos.
+         * Solo cerramos si se pulsa
+         * directamente el fondo.
          */
 
         if (
@@ -290,171 +346,112 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =========================================================
+  /* =======================================================
      ESC
-     ========================================================= */
+  ======================================================= */
 
-  if (lightbox) {
+  document.addEventListener(
+    "keydown",
+    event => {
 
-    lightbox.addEventListener(
-      "cancel",
-      () => {
+      if (
+        event.key === "Escape"
+      ) {
 
-        /*
-         * El navegador ya cierra el dialog
-         * al pulsar ESC.
-         *
-         * No hacemos preventDefault().
-         */
+        closeLightbox();
 
       }
-    );
-
-  }
-
-
-  /* =========================================================
-     ACTUALIZAR LIGHTBOX
-     ========================================================= */
-
-  function updateLightbox() {
-
-    if (
-      !lightbox ||
-      !lightbox.open ||
-      !lightboxImage
-    ) {
-
-      return;
 
     }
+  );
 
 
-    const currentImages =
-      visibleImages();
+  /* =======================================================
+     TECLADO LIGHTBOX
+  ======================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        !lightbox ||
+        !lightbox.classList.contains(
+          "is-open"
+        )
+      ) {
+
+        return;
+
+      }
 
 
-    if (!currentImages.length) {
-
-      closeLightbox();
-
-      return;
-
-    }
+      const currentImages =
+        visibleImages();
 
 
-    const image =
-      currentImages[index];
+      if (!currentImages.length) {
+        return;
+      }
 
 
-    if (!image) {
-      return;
-    }
+      if (
+        event.key === "ArrowLeft"
+      ) {
 
-
-    lightboxImage.src =
-      image.src;
-
-
-    lightboxImage.alt =
-      image.title ||
-      "Imagen de NEXUS";
-
-
-    if (lightboxCaption) {
-
-      lightboxCaption.textContent =
-        image.title ||
-        "";
-
-    }
-
-  }
-
-
-  /* =========================================================
-     FILTROS
-     ========================================================= */
-
-  function renderFilters() {
-
-    filters.innerHTML = "";
-
-
-    const categories = [
-
-      "Todas",
-
-      ...new Set(
-        images
-          .map(image => image.cat)
-          .filter(Boolean)
-      )
-
-    ];
-
-
-    categories.forEach(
-      category => {
-
-        const button =
-          document.createElement("button");
-
-
-        button.type =
-          "button";
-
-
-        button.className =
-          "filter-btn" +
+        index =
           (
-            category === filter
-              ? " active"
-              : ""
-          );
+            index -
+            1 +
+            currentImages.length
+          ) %
+          currentImages.length;
 
 
-        button.textContent =
-          category;
+        render();
 
 
-        button.setAttribute(
-          "aria-pressed",
-          category === filter
-            ? "true"
-            : "false"
+        openLightbox(
+          currentImages[index]
         );
 
 
-        button.addEventListener(
-          "click",
-          () => {
-
-            filter =
-              category;
-
-            index =
-              0;
-
-            render();
-
-          }
-        );
-
-
-        filters.appendChild(
-          button
-        );
+        return;
 
       }
-    );
-
-  }
 
 
-  /* =========================================================
+      if (
+        event.key === "ArrowRight"
+      ) {
+
+        index =
+          (
+            index +
+            1
+          ) %
+          currentImages.length;
+
+
+        render();
+
+
+        openLightbox(
+          currentImages[index]
+        );
+
+
+        return;
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
      RENDER GALERÍA
-     ========================================================= */
+  ======================================================= */
 
   function render() {
 
@@ -466,8 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-     * Eliminamos los slides
-     * anteriores.
+     * Eliminar slides anteriores
      */
 
     slider
@@ -475,43 +471,26 @@ document.addEventListener("DOMContentLoaded", () => {
         ".gallery-slide"
       )
       .forEach(
-        slide =>
-          slide.remove()
+        slide => slide.remove()
       );
 
 
-    dots.innerHTML =
-      "";
+    /*
+     * Limpiar dots y miniaturas
+     */
 
-    thumbs.innerHTML =
-      "";
+    dots.innerHTML = "";
+
+    thumbs.innerHTML = "";
 
 
     /*
-     * No hay imágenes.
+     * No hay imágenes
      */
 
     if (
       !currentImages.length
     ) {
-
-      const message =
-        document.createElement("p");
-
-
-      message.className =
-        "muted";
-
-
-      message.textContent =
-        "No hay imágenes disponibles.";
-
-
-      slider.insertBefore(
-        message,
-        prevButton
-      );
-
 
       return;
 
@@ -519,31 +498,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-     * Seguridad para el índice.
+     * Corregir índice
      */
 
     if (
-      index < 0 ||
-      index >= currentImages.length
+      index >=
+      currentImages.length
     ) {
 
-      index =
-        0;
+      index = 0;
 
     }
 
 
-    /* =======================================================
+    /* ===================================================
        CREAR CADA IMAGEN
-       ======================================================= */
+    =================================================== */
 
     currentImages.forEach(
       (image, i) => {
 
 
-        /* ---------------------------------------------------
+        /* -----------------------------------------------
            SLIDE
-           --------------------------------------------------- */
+        ------------------------------------------------ */
 
         const slide =
           document.createElement(
@@ -560,9 +538,9 @@ document.addEventListener("DOMContentLoaded", () => {
           );
 
 
-        /* ---------------------------------------------------
-           IMAGEN PRINCIPAL
-           --------------------------------------------------- */
+        /* -----------------------------------------------
+           IMAGEN
+        ------------------------------------------------ */
 
         const img =
           document.createElement(
@@ -575,8 +553,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         img.alt =
-          image.title ||
-          "Imagen de NEXUS";
+          image.title;
+
+
+        img.draggable =
+          false;
 
 
         img.loading =
@@ -585,49 +566,15 @@ document.addEventListener("DOMContentLoaded", () => {
             : "lazy";
 
 
-        img.decoding =
-          "async";
-
-
-        img.style.cursor =
-          "zoom-in";
-
-
         /*
-         * Si la imagen falla,
-         * lo mostramos en consola.
-         */
-
-        img.onerror =
-          () => {
-
-            console.error(
-              "NEXUS Gallery: no se pudo cargar:",
-              image.src
-            );
-
-          };
-
-
-        /*
-         * CLICK EN LA IMAGEN
-         *
-         * Abre el visor ampliado.
+         * CLICK PARA AMPLIAR
          */
 
         img.addEventListener(
           "click",
           () => {
 
-            /*
-             * Nos aseguramos de que
-             * el índice corresponde
-             * a esta imagen.
-             */
-
-            index =
-              i;
-
+            index = i;
 
             openLightbox(
               image
@@ -637,9 +584,19 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ---------------------------------------------------
+        img.onerror = () => {
+
+          console.error(
+            "No se pudo cargar:",
+            image.src
+          );
+
+        };
+
+
+        /* -----------------------------------------------
            CAPTION
-           --------------------------------------------------- */
+        ------------------------------------------------ */
 
         const caption =
           document.createElement(
@@ -651,46 +608,26 @@ document.addEventListener("DOMContentLoaded", () => {
           "gallery-caption";
 
 
-        const title =
-          document.createElement(
-            "strong"
-          );
+        caption.innerHTML = `
+
+          <strong>
+            ${image.title}
+          </strong>
+
+          <span>
+            ${image.desc}
+          </span>
+
+        `;
 
 
-        title.textContent =
-          image.title;
-
-
-        const description =
-          document.createElement(
-            "span"
-          );
-
-
-        description.textContent =
-          image.desc ||
-          image.cat ||
-          "";
-
-
-        caption.appendChild(
-          title
-        );
-
-
-        caption.appendChild(
-          description
-        );
-
-
-        /* ---------------------------------------------------
-           MONTAR SLIDE
-           --------------------------------------------------- */
+        /* -----------------------------------------------
+           AÑADIR AL SLIDE
+        ------------------------------------------------ */
 
         slide.appendChild(
           img
         );
-
 
         slide.appendChild(
           caption
@@ -703,9 +640,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ===================================================
+        /* =================================================
            DOT
-           =================================================== */
+        ================================================= */
 
         const dot =
           document.createElement(
@@ -728,15 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         dot.setAttribute(
           "aria-label",
-          `Mostrar ${image.title}`
-        );
-
-
-        dot.setAttribute(
-          "aria-current",
-          i === index
-            ? "true"
-            : "false"
+          `Ver imagen ${i + 1}`
         );
 
 
@@ -744,8 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "click",
           () => {
 
-            index =
-              i;
+            index = i;
 
             render();
 
@@ -758,9 +686,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* ===================================================
+        /* =================================================
            MINIATURA
-           =================================================== */
+        ================================================= */
 
         const thumb =
           document.createElement(
@@ -778,15 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         thumb.setAttribute(
           "aria-label",
-          `Ver ${image.title}`
-        );
-
-
-        thumb.setAttribute(
-          "aria-current",
-          i === index
-            ? "true"
-            : "false"
+          `Ampliar ${image.title}`
         );
 
 
@@ -801,15 +721,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         thumbImg.alt =
-          "";
+          image.title;
 
 
         thumbImg.loading =
           "lazy";
 
 
-        thumbImg.decoding =
-          "async";
+        thumbImg.draggable =
+          false;
 
 
         thumb.appendChild(
@@ -818,19 +738,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * CLICK EN MINIATURA
-         *
-         * Cambia la imagen principal.
+         * MINIATURA:
+         * cambia la imagen y abre lightbox
          */
 
         thumb.addEventListener(
           "click",
           () => {
 
-            index =
-              i;
+            index = i;
 
             render();
+
+            openLightbox(
+              image
+            );
 
           }
         );
@@ -844,10 +766,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /*
-     * Volvemos a colocar
-     * las flechas.
-     */
+    /* ===================================================
+       RECOLOCAR FLECHAS
+    =================================================== */
 
     slider.appendChild(
       prevButton
@@ -857,20 +778,12 @@ document.addEventListener("DOMContentLoaded", () => {
       nextButton
     );
 
-
-    /*
-     * Si el lightbox estaba abierto,
-     * actualizamos la imagen.
-     */
-
-    updateLightbox();
-
   }
 
 
-  /* =========================================================
+  /* =======================================================
      CAMBIAR IMAGEN
-     ========================================================= */
+  ======================================================= */
 
   function move(amount) {
 
@@ -896,40 +809,18 @@ document.addEventListener("DOMContentLoaded", () => {
       currentImages.length;
 
 
-    /*
-     * Si el visor está abierto,
-     * actualizamos directamente
-     * el lightbox.
-
-     * Si no está abierto,
-     * simplemente renderizamos.
-     */
-
-    if (
-      lightbox &&
-      lightbox.open
-    ) {
-
-      render();
-
-    } else {
-
-      render();
-
-    }
+    render();
 
   }
 
 
-  /* =========================================================
+  /* =======================================================
      FLECHA ANTERIOR
-     ========================================================= */
+  ======================================================= */
 
   prevButton.addEventListener(
     "click",
-    event => {
-
-      event.stopPropagation();
+    () => {
 
       move(-1);
 
@@ -937,15 +828,13 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================================================
+  /* =======================================================
      FLECHA SIGUIENTE
-     ========================================================= */
+  ======================================================= */
 
   nextButton.addEventListener(
     "click",
-    event => {
-
-      event.stopPropagation();
+    () => {
 
       move(1);
 
@@ -953,29 +842,23 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================================================
-     TECLADO
-     ========================================================= */
+  /* =======================================================
+     TECLADO DEL SLIDER
+  ======================================================= */
 
   document.addEventListener(
     "keydown",
     event => {
 
       /*
-       * Si estamos escribiendo en algún
-       * input, no usamos las flechas.
+       * Si el lightbox está abierto,
+       * el otro controlador se encarga.
        */
 
-      const activeElement =
-        document.activeElement;
-
-
       if (
-        activeElement &&
-        (
-          activeElement.tagName === "INPUT" ||
-          activeElement.tagName === "TEXTAREA" ||
-          activeElement.tagName === "SELECT"
+        lightbox &&
+        lightbox.classList.contains(
+          "is-open"
         )
       ) {
 
@@ -984,30 +867,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 
-      /* --------------------------------
-         IMAGEN ANTERIOR
-         -------------------------------- */
-
       if (
         event.key === "ArrowLeft"
       ) {
-
-        event.preventDefault();
 
         move(-1);
 
       }
 
 
-      /* --------------------------------
-         IMAGEN SIGUIENTE
-         -------------------------------- */
-
       if (
         event.key === "ArrowRight"
       ) {
-
-        event.preventDefault();
 
         move(1);
 
@@ -1017,11 +888,10 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 
-  /* =========================================================
+  /* =======================================================
      INICIAR
-     ========================================================= */
+  ======================================================= */
 
   render();
-
 
 });
