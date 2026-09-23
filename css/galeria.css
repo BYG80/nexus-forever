@@ -1,30 +1,50 @@
 /* =========================================================
    NEXUS — GALERÍA
-   ========================================================= */
+========================================================= */
 
 
 /* =========================================================
-   BARRA DE FILTROS
-   ========================================================= */
+   TOOLBAR
+========================================================= */
 
 .gallery-toolbar {
+
   display: flex;
+
   gap: 12px;
+
   align-items: center;
+
   justify-content: space-between;
+
   flex-wrap: wrap;
+
   margin-bottom: 22px;
+
 }
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
 
 .gallery-filter {
+
   display: flex;
+
   gap: 8px;
+
   flex-wrap: wrap;
+
 }
 
+
 .filter-btn {
+
   border: 1px solid var(--line);
+
   background: #0b0e13;
+
   color: #dce1e9;
 
   padding: 8px 13px;
@@ -39,36 +59,41 @@
     background .2s ease,
     color .2s ease,
     border-color .2s ease,
-    transform .2s ease,
-    box-shadow .2s ease;
+    transform .2s ease;
+
 }
 
+
 .filter-btn:hover {
+
   background: rgba(215,173,88,.12);
+
   color: var(--gold2);
+
   border-color: rgba(215,173,88,.35);
 
   transform: translateY(-1px);
 
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.2);
 }
 
+
 .filter-btn.active {
+
   background: rgba(215,173,88,.14);
+
   color: var(--gold2);
+
   border-color: rgba(215,173,88,.45);
 
-  box-shadow:
-    0 4px 15px rgba(0,0,0,.2);
 }
 
 
 /* =========================================================
-   SLIDER PRINCIPAL
-   ========================================================= */
+   SLIDER
+========================================================= */
 
 .gallery-slider {
+
   position: relative;
 
   min-height: 430px;
@@ -82,34 +107,43 @@
   background: #07090d;
 
   display: grid;
+
   place-items: center;
 
   box-shadow:
     0 12px 35px rgba(0,0,0,.25);
+
 }
 
+
 .gallery-slide {
+
   display: none;
 
   width: 100%;
+
   height: 430px;
 
   position: relative;
 
-  overflow: hidden;
 }
 
+
 .gallery-slide.active {
+
   display: block;
+
 }
 
 
 /* =========================================================
    IMAGEN PRINCIPAL
-   ========================================================= */
+========================================================= */
 
 .gallery-slide img {
+
   width: 100%;
+
   height: 100%;
 
   object-fit: cover;
@@ -119,33 +153,32 @@
   cursor: zoom-in;
 
   transition:
-    transform .35s ease,
-    filter .25s ease;
+    filter .2s ease,
+    transform .3s ease;
+
 }
 
 
-/*
- * Pequeño efecto visual al pasar
- * el ratón sobre la imagen.
- */
-
 .gallery-slide img:hover {
+
   filter: brightness(1.08);
+
 }
 
 
 /* =========================================================
    CAPTION
-   ========================================================= */
+========================================================= */
 
 .gallery-caption {
+
   position: absolute;
 
   left: 0;
-  right: 0;
-  bottom: 0;
 
-  z-index: 2;
+  right: 0;
+
+  bottom: 0;
 
   padding: 55px 24px 20px;
 
@@ -156,9 +189,12 @@
     );
 
   pointer-events: none;
+
 }
 
+
 .gallery-caption strong {
+
   display: block;
 
   font-family: Cinzel, serif;
@@ -168,9 +204,12 @@
   font-size: 1.2rem;
 
   line-height: 1.3;
+
 }
 
+
 .gallery-caption span {
+
   display: block;
 
   color: #dce1e9;
@@ -178,23 +217,26 @@
   font-size: .84rem;
 
   margin-top: 5px;
+
 }
 
 
 /* =========================================================
    FLECHAS
-   ========================================================= */
+========================================================= */
 
 .slider-arrow {
+
   position: absolute;
 
   top: 50%;
 
   transform: translateY(-50%);
 
-  z-index: 5;
+  z-index: 3;
 
   width: 44px;
+
   height: 44px;
 
   border: 1px solid rgba(255,255,255,.15);
@@ -220,49 +262,57 @@
   transition:
     background .2s ease,
     border-color .2s ease,
-    transform .2s ease,
-    box-shadow .2s ease;
+    transform .2s ease;
+
 }
 
+
 .slider-arrow:hover {
+
   background: rgba(215,173,88,.15);
 
   border-color: rgba(215,173,88,.45);
 
-  box-shadow:
-    0 5px 18px rgba(0,0,0,.35);
-
-  transform:
-    translateY(-50%)
-    scale(1.06);
 }
+
 
 .slider-arrow.prev {
+
   left: 14px;
+
 }
 
+
 .slider-arrow.next {
+
   right: 14px;
+
 }
 
 
 /* =========================================================
-   PUNTOS DEL SLIDER
-   ========================================================= */
+   DOTS
+========================================================= */
 
 .gallery-dots {
+
   display: flex;
 
   justify-content: center;
+
   align-items: center;
 
   gap: 8px;
 
   margin: 14px 0;
+
 }
 
+
 .gallery-dot {
+
   width: 8px;
+
   height: 8px;
 
   border-radius: 50%;
@@ -277,31 +327,33 @@
 
   transition:
     background .2s ease,
-    transform .2s ease,
-    box-shadow .2s ease;
+    transform .2s ease;
+
 }
+
 
 .gallery-dot:hover {
+
   background: #8b929c;
 
-  transform: scale(1.15);
 }
 
+
 .gallery-dot.active {
+
   background: var(--gold2);
 
   transform: scale(1.3);
 
-  box-shadow:
-    0 0 8px rgba(215,173,88,.35);
 }
 
 
 /* =========================================================
    MINIATURAS
-   ========================================================= */
+========================================================= */
 
 .gallery-grid {
+
   display: grid;
 
   grid-template-columns:
@@ -310,30 +362,39 @@
   gap: 12px;
 
   margin-top: 22px;
+
 }
 
+
 .gallery-thumb {
+
   height: 115px;
 
-  border: 1px solid rgba(255,255,255,.08);
+  border:
+    1px solid rgba(255,255,255,.08);
 
   border-radius: 8px;
 
   overflow: hidden;
 
-  cursor: pointer;
+  cursor: zoom-in;
 
   background: #10141b;
 
   position: relative;
 
+  padding: 0;
+
   transition:
     transform .2s ease,
     border-color .2s ease,
     box-shadow .2s ease;
+
 }
 
+
 .gallery-thumb:hover {
+
   transform: translateY(-3px);
 
   border-color:
@@ -341,10 +402,14 @@
 
   box-shadow:
     0 8px 20px rgba(0,0,0,.3);
+
 }
 
+
 .gallery-thumb img {
+
   width: 100%;
+
   height: 100%;
 
   object-fit: cover;
@@ -352,22 +417,24 @@
   display: block;
 
   transition:
-    transform .35s ease,
-    filter .25s ease;
+    transform .35s ease;
+
 }
 
+
 .gallery-thumb:hover img {
+
   transform: scale(1.05);
 
-  filter: brightness(1.08);
 }
 
 
 /* =========================================================
-   TEXTO DE AYUDA
-   ========================================================= */
+   AYUDA
+========================================================= */
 
 .gallery-help {
+
   color: var(--muted);
 
   font-size: .8rem;
@@ -376,389 +443,436 @@
 
   line-height: 1.5;
 
-  text-align: center;
 }
 
 
 /* =========================================================
-   =========================================================
-   LIGHTBOX — IMAGEN AMPLIADA
-   =========================================================
-   ========================================================= */
+   LIGHTBOX
+========================================================= */
 
 .gallery-lightbox {
-  /*
-   * Ocupa prácticamente toda la pantalla
-   * pero mantiene un pequeño margen.
-   */
 
-  width: 96vw;
-  height: 94vh;
+  position: fixed;
 
-  max-width: 1600px;
-  max-height: 1000px;
+  inset: 0;
 
-  /*
-   * Importante:
-   * quitamos el padding por defecto
-   * del elemento dialog.
-   */
+  width: 100vw;
 
-  padding: 0;
+  height: 100vh;
 
-  margin: auto;
+  display: none;
 
-  border: 1px solid rgba(255,255,255,.14);
+  align-items: center;
 
-  border-radius: 12px;
+  justify-content: center;
 
-  background: #05070a;
+  background:
+    rgba(0,0,0,.96);
 
-  overflow: hidden;
-
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.85);
-
-  /*
-   * Evita que estilos heredados
-   * de otros elementos interfieran.
-   */
+  z-index: 99999;
 
   box-sizing: border-box;
+
+  padding: 30px;
+
+}
+
+
+/*
+ * JS añade .is-open
+ */
+
+.gallery-lightbox.is-open {
+
+  display: flex;
+
 }
 
 
 /* =========================================================
-   FONDO OSCURO DEL LIGHTBOX
-   ========================================================= */
+   CONTENIDO LIGHTBOX
+========================================================= */
 
-.gallery-lightbox::backdrop {
-  background: rgba(0,0,0,.94);
+.gallery-lightbox-content {
 
-  backdrop-filter: blur(5px);
+  position: relative;
+
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
 }
 
-
-/* =========================================================
-   IMAGEN AMPLIADA
-   ========================================================= */
 
 .gallery-lightbox img {
-  width: 100%;
-  height: 100%;
 
   display: block;
 
-  /*
-   * MUY IMPORTANTE:
-   *
-   * contain hace que la imagen completa
-   * sea visible sin recortarla.
-   */
+  width: auto;
+
+  height: auto;
+
+  max-width: 94vw;
+
+  max-height: 88vh;
 
   object-fit: contain;
 
-  object-position: center;
+  border-radius: 8px;
 
-  background: #05070a;
-
-  cursor: default;
+  box-shadow:
+    0 20px 80px rgba(0,0,0,.9);
 
   user-select: none;
 
   -webkit-user-drag: none;
+
 }
 
 
 /* =========================================================
    BOTÓN CERRAR
-   ========================================================= */
+========================================================= */
 
 .gallery-lightbox-close {
-  position: absolute;
 
-  top: 14px;
-  right: 14px;
+  position: fixed;
 
-  z-index: 20;
+  top: 20px;
 
-  width: 44px;
-  height: 44px;
+  right: 25px;
 
-  padding: 0;
+  width: 46px;
 
-  border: 1px solid rgba(255,255,255,.22);
+  height: 46px;
+
+  border:
+    1px solid rgba(255,255,255,.25);
 
   border-radius: 50%;
 
   background:
-    rgba(5,7,10,.82);
+    rgba(0,0,0,.75);
 
   color: #fff;
 
-  font-size: 1.15rem;
+  font-size: 25px;
 
   line-height: 1;
 
   cursor: pointer;
 
+  z-index: 100001;
+
   display: flex;
 
   align-items: center;
 
   justify-content: center;
 
-  backdrop-filter: blur(6px);
-
   transition:
     background .2s ease,
-    color .2s ease,
-    border-color .2s ease,
     transform .2s ease,
-    box-shadow .2s ease;
+    border-color .2s ease;
+
 }
+
 
 .gallery-lightbox-close:hover {
-  background:
-    rgba(215,173,88,.18);
 
-  color: var(--gold2);
+  background:
+    rgba(215,173,88,.2);
 
   border-color:
-    rgba(215,173,88,.55);
+    rgba(215,173,88,.7);
 
-  transform:
-    scale(1.07);
+  transform: scale(1.08);
 
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.45);
-}
-
-.gallery-lightbox-close:focus-visible {
-  outline: 2px solid var(--gold2);
-
-  outline-offset: 3px;
 }
 
 
 /* =========================================================
-   TEXTO DEL LIGHTBOX
-   ========================================================= */
+   TEXTO LIGHTBOX
+========================================================= */
 
 .gallery-lightbox-caption {
-  position: absolute;
 
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: fixed;
 
-  z-index: 10;
+  left: 50%;
 
-  padding:
-    65px 28px
-    20px;
+  bottom: 20px;
+
+  transform: translateX(-50%);
+
+  width: min(90vw, 900px);
+
+  padding: 12px 18px;
+
+  text-align: center;
 
   background:
-    linear-gradient(
-      transparent,
-      rgba(0,0,0,.9)
-    );
+    rgba(0,0,0,.75);
+
+  border-radius: 8px;
+
+  color: #fff;
+
+  z-index: 100000;
+
+  pointer-events: none;
+
+}
+
+
+.gallery-lightbox-caption strong {
+
+  display: block;
 
   color: var(--gold2);
 
   font-family: Cinzel, serif;
 
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 
-  line-height: 1.4;
+}
 
-  text-shadow:
-    0 2px 5px rgba(0,0,0,.8);
 
-  pointer-events: none;
+.gallery-lightbox-caption span {
+
+  display: block;
+
+  margin-top: 4px;
+
+  color: #dce1e9;
+
+  font-size: .82rem;
+
 }
 
 
 /* =========================================================
-   ESTADO ABIERTO
-   ========================================================= */
-
-.gallery-lightbox[open] {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
+   RESPONSIVE TABLET
+========================================================= */
 
 @media (max-width: 900px) {
 
   .gallery-grid {
+
     grid-template-columns:
       repeat(3, 1fr);
+
   }
 
 }
 
 
 /* =========================================================
-   MÓVIL
-   ========================================================= */
+   RESPONSIVE MÓVIL
+========================================================= */
 
 @media (max-width: 650px) {
 
   .gallery-slider {
+
     min-height: 330px;
 
     border-radius: 9px;
+
   }
 
+
   .gallery-slide {
+
     height: 330px;
+
   }
 
 
   .gallery-caption {
+
     padding:
       45px 16px 15px;
+
   }
+
 
   .gallery-caption strong {
+
     font-size: 1rem;
+
   }
 
+
   .gallery-caption span {
+
     font-size: .76rem;
+
   }
 
 
   .slider-arrow {
+
     width: 38px;
+
     height: 38px;
 
     font-size: 1.1rem;
+
   }
+
 
   .slider-arrow.prev {
+
     left: 8px;
+
   }
 
+
   .slider-arrow.next {
+
     right: 8px;
+
   }
 
 
   .gallery-grid {
+
     grid-template-columns:
       repeat(2, 1fr);
 
     gap: 9px;
+
   }
+
 
   .gallery-thumb {
+
     height: 100px;
+
   }
 
 
-  /* -------------------------------
-     LIGHTBOX MÓVIL
-     ------------------------------- */
+  /* LIGHTBOX */
 
   .gallery-lightbox {
 
-    width: 100vw;
-    height: 100vh;
+    padding: 10px;
 
-    max-width: none;
-    max-height: none;
+  }
 
-    border: 0;
 
-    border-radius: 0;
+  .gallery-lightbox img {
+
+    max-width: 96vw;
+
+    max-height: 82vh;
+
   }
 
 
   .gallery-lightbox-close {
 
     top: 12px;
+
     right: 12px;
 
     width: 42px;
+
     height: 42px;
+
+    font-size: 22px;
+
   }
 
 
   .gallery-lightbox-caption {
 
-    padding:
-      50px 16px
-      16px;
+    bottom: 12px;
 
-    font-size: .9rem;
+    width: 90vw;
+
+    padding: 9px 12px;
+
+  }
+
+
+  .gallery-lightbox-caption strong {
+
+    font-size: .95rem;
+
+  }
+
+
+  .gallery-lightbox-caption span {
+
+    font-size: .75rem;
+
   }
 
 }
 
 
 /* =========================================================
-   MÓVIL PEQUEÑO
-   ========================================================= */
+   MÓVILES PEQUEÑOS
+========================================================= */
 
 @media (max-width: 420px) {
 
   .gallery-toolbar {
+
     align-items: flex-start;
+
   }
+
 
   .gallery-filter {
+
     width: 100%;
+
   }
 
+
   .filter-btn {
+
     padding: 7px 10px;
 
     font-size: .78rem;
+
   }
 
 
   .gallery-slider {
+
     min-height: 280px;
+
   }
 
+
   .gallery-slide {
+
     height: 280px;
+
   }
 
 
   .gallery-grid {
+
     gap: 7px;
+
   }
+
 
   .gallery-thumb {
+
     height: 85px;
-  }
 
-
-  .gallery-lightbox-close {
-
-    top: 10px;
-    right: 10px;
-
-    width: 40px;
-    height: 40px;
-  }
-
-  .gallery-lightbox-caption {
-
-    font-size: .82rem;
-
-    padding:
-      45px 14px
-      14px;
   }
 
 }
