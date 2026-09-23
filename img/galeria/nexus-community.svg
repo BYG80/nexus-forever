@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
-<defs><radialGradient id="g"><stop offset="0" stop-color="#283447"/><stop offset="1" stop-color="#07090d"/></radialGradient></defs>
-<rect width="1600" height="900" fill="url(#g)"/>
-<circle cx="800" cy="430" r="260" fill="none" stroke="#d7ad58" stroke-opacity=".25" stroke-width="3"/>
-<circle cx="800" cy="430" r="180" fill="none" stroke="#d7ad58" stroke-opacity=".15" stroke-width="2"/>
-<text x="800" y="420" text-anchor="middle" fill="#f2d28a" font-family="Georgia,serif" font-size="76" font-weight="bold" letter-spacing="8">NEXUS · COMUNIDAD</text>
-<text x="800" y="500" text-anchor="middle" fill="#9da6b5" font-family="Arial,sans-serif" font-size="28" letter-spacing="3">Juntos en Forever</text>
-</svg>
