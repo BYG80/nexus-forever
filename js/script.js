@@ -27,18 +27,78 @@ function showUnlock(){if(document.getElementById('music-unlock'))return;const b=
 function setActive(){const p=location.pathname.replace(/\/$/,'')||'/';document.querySelectorAll('.nav-links a').forEach(a=>{const q=new URL(a.href,location.href).pathname.replace(/\/$/,'')||'/';const on=q===p;a.classList.toggle('active',on);on?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')})}
 function menu(){const t=document.querySelector('.menu-toggle'),n=document.querySelector('.nav-links');if(!t||!n||t.dataset.wired)return;t.dataset.wired='1';t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',String(o))});n.addEventListener('click',e=>{if(e.target.closest('a')){n.classList.remove('open');t.setAttribute('aria-expanded','false')}})}
 function loadPageAssets(path){
-  const file=path.split('/').pop().toLowerCase()||'index.html';
-  const map={
-    'calendario.html':{css:'./css/calendario.css',js:'./js/calendario.js'},
-    'galeria.html':{css:'./css/galeria.css?v=10',js:'./js/galeria.js?v=10'}
+
+  const file =
+    path.split('/').pop().toLowerCase() ||
+    'index.html';
+
+  const map = {
+
+    'calendario.html': {
+      css: './css/calendario.css',
+      js: './js/calendario.js'
+    },
+
+    'galeria.html': {
+      css: './css/galeria.css?v=10',
+      js: './js/galeria.js?v=10'
+    }
+
   };
-  const cfg=map[file];
-  if(!cfg){ if(typeof window.NexusPageInit==='function' && window.NexusPageInit.__page!==file){try{window.NexusPageInit()}catch(e){}}; return; }
-  const cssKey=cfg.css.split('?')[0];
-  if(!document.querySelector(`link[href^="${cssKey}"]`)){const l=document.createElement('link');l.rel='stylesheet';l.href=cfg.css;document.head.appendChild(l)}
-  const existing=document.querySelector(`script[data-nexus-page="${file}"]`);
-  if(existing){try{window.NexusPageInit?.()}catch(e){};return;}
-  const s=document.createElement('script');s.src=cfg.js;s.dataset.nexusPage=file;s.onload=()=>{try{window.NexusPageInit?.()}catch(e){console.error(e)}};document.body.appendChild(s);
+
+  const cfg = map[file];
+
+  if (!cfg) {
+    window.NexusPageInit = null;
+    return;
+  }
+
+  const cssKey = cfg.css.split('?')[0];
+
+  if (!document.querySelector(`link[href^="${cssKey}"]`)) {
+
+    const l = document.createElement('link');
+
+    l.rel = 'stylesheet';
+    l.href = cfg.css;
+
+    document.head.appendChild(l);
+  }
+
+  document
+    .querySelectorAll('script[data-nexus-page]')
+    .forEach(script => script.remove());
+
+  window.NexusPageInit = null;
+
+  const s = document.createElement('script');
+
+  s.src =
+    cfg.js +
+    (cfg.js.includes('?') ? '&' : '?') +
+    'cb=' +
+    Date.now();
+
+  s.dataset.nexusPage = file;
+
+  s.onload = () => {
+
+    try {
+
+      if (typeof window.NexusPageInit === 'function') {
+        window.NexusPageInit();
+      }
+
+    } catch (e) {
+
+      console.error(e);
+
+    }
+
+  };
+
+  document.body.appendChild(s);
+
 }
 async function navigate(url,push=true){
   const u=new URL(url,location.href);if(u.origin!==location.origin){location.href=u.href;return}
