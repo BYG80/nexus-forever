@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const DEFAULT_IMAGES = [
     {src:"./img/galeria/nexus-raids.svg",title:"Noches de Raid",cat:"Raids",desc:"Momentos de progresión de NEXUS"},
-    {src:"./img/galeria/nexus-azeroth.svg",title:"Explorando Azeroth",cat:"Azeroth",desc:"Aventuras y exploración"},
+    {src:"./img/galeria/Azeroth01.jpg",title:"Explorando Azeroth",cat:"Azeroth",desc:"Aventuras y exploración"},
+    {src:"./img/galeria/Azeroth02.jpg",title:"Explorando Azeroth",cat:"Azeroth",desc:"Aventuras y exploración"},
     {src:"./img/galeria/nexus-pvp.svg",title:"Honor y combate",cat:"PvP",desc:"Actividades PvP de la hermandad"},
     {src:"./img/galeria/nexus-community.svg",title:"Juntos en Forever",cat:"Comunidad",desc:"La comunidad por encima de todo"}
   ];
