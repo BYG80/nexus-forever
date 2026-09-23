@@ -212,12 +212,43 @@
         <p
           class="gallery-help"
           aria-live="polite">
+          Haz clic sobre la imagen principal para verla ampliada.
         </p>
 
       </div>
     </section>
 
   </main>
+
+
+  <!-- =========================================================
+       LIGHTBOX / VISOR DE IMAGEN
+       ========================================================= -->
+
+  <dialog
+    id="galleryLightbox"
+    class="gallery-lightbox"
+    aria-label="Imagen ampliada">
+
+    <button
+      type="button"
+      id="galleryLightboxClose"
+      class="gallery-lightbox-close"
+      aria-label="Cerrar imagen">
+      ✕
+    </button>
+
+    <img
+      id="galleryLightboxImage"
+      src=""
+      alt="">
+
+    <div
+      id="galleryLightboxCaption"
+      class="gallery-lightbox-caption">
+    </div>
+
+  </dialog>
 
 
   <!-- Pie de página -->
@@ -273,7 +304,7 @@
 
   <!-- JavaScript -->
   <script src="./js/script.js"></script>
-  <script src="./js/galeria.js?v=3"></script>
+  <script src="./js/galeria.js?v=4"></script>
 
 
   <!-- Sistema de música -->
@@ -325,8 +356,10 @@
             btn.querySelector('.music-icon');
 
           if (icon) {
+
             icon.textContent =
               a.paused ? '🔇' : '🔊';
+
           }
 
         }
@@ -368,8 +401,9 @@
         }).catch(function () {
 
           // El navegador puede bloquear
-          // el autoplay. Se reintentará
-          // después de una interacción.
+          // el autoplay.
+          // Se reintentará después
+          // de una interacción.
 
         });
 
@@ -562,4 +596,3 @@
 
 </body>
 </html>
-
