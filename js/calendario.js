@@ -1,4 +1,4 @@
-window.NexusPageInit = async function () {
+document.addEventListener('DOMContentLoaded', async () => {
   const grid = document.getElementById('calendarGrid');
   const title = document.getElementById('monthTitle');
   const list = document.getElementById('eventList');
@@ -68,5 +68,4 @@ window.NexusPageInit = async function () {
   document.getElementById('prevMonth').addEventListener('click',()=>{view.setMonth(view.getMonth()-1);render();});
   document.getElementById('nextMonth').addEventListener('click',()=>{view.setMonth(view.getMonth()+1);render();});
   render();
-}
-
+});

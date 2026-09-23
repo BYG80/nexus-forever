@@ -1,4 +1,4 @@
-window.NexusPageInit = function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        NEXUS — GALERÍA
@@ -890,5 +890,4 @@ window.NexusPageInit = function () {
 
     render();
 
-}
-
+});
