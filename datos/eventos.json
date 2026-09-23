@@ -14,21 +14,5 @@
     "title": "Continuamos la beta con la hermandad",
     "type": "Evento",
     "description": "Evento de Beta"
-  },
-      {
-    "id": "Beta test",
-    "date": "2026-09-25",
-    "time": "18:00",
-    "title": "Blackfathom Deeps",
-    "type": "Mazmorra",
-    "description": "Otro reto duro, pero con la Horda todo es posible"
-  },
-    {
-    "id": "Beta test",
-    "date": "2026-09-26",
-    "time": "18:00",
-    "title": "Halls of the Thanes",
-    "type": "Mazmorra",
-    "description": "Mazmorra ubicada en Ironjorge, será duro llegar hasta la alianza, pero podremos derribar sus defensas y adentrarnos en la mazmorra"
   }
 ]
