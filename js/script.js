@@ -117,7 +117,7 @@ async function navigate(url,push=true){
     setActive();menu();loadPageAssets(u.pathname);window.scrollTo(0,0);
   }catch(e){location.href=u.href}
 }
-function links(){document.addEventListener('click',e=>{const l=e.target.closest('a[href]');if(!l||l.target==='_blank'||l.hasAttribute('download')||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;const u=new URL(l.href,location.href);if(u.origin!==location.origin||!u.pathname.endsWith('.html'))return;e.preventDefault();navigate(u.href)})}
+function links(){}
 window.addEventListener('popstate',()=>navigate(location.href,false));window.addEventListener('pagehide',save);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')save()});
 document.addEventListener('DOMContentLoaded',async()=>{getAudio();menu();links();setActive();loadPageAssets(location.pathname);await play();document.addEventListener('pointerdown',play,{capture:true});document.addEventListener('keydown',play,{capture:true})});
 window.NexusMusic={play,save,getAudio};
