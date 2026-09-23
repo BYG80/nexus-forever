@@ -2,16 +2,29 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Normas de la hermandad | NEXUS</title><meta name="description" content="Unas reglas sencillas para que NEXUS sea un lugar agradable para todos.">
+<title>Normas de la hermandad NEXUS | World of Warcraft Forever</title><meta name="description" content="Consulta las normas de convivencia de NEXUS: respeto, comunidad, raids, PvP, Discord y participación en World of Warcraft Forever.">
 <link rel="stylesheet" href="./css/global.css">
 <link rel="stylesheet" href="./css/normas.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://byg80.github.io/nexus-forever/normas.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Normas de la hermandad NEXUS | World of Warcraft Forever">
+  <meta property="og:description" content="Consulta las normas de convivencia de NEXUS: respeto, comunidad, raids, PvP, Discord y participación en World of Warcraft Forever.">
+  <meta property="og:url" content="https://byg80.github.io/nexus-forever/normas.html">
+  <meta property="og:site_name" content="NEXUS — Veteranos de Azeroth">
+  <meta property="og:image" content="https://byg80.github.io/nexus-forever/img/galeria/Azeroth01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Normas de la hermandad NEXUS | World of Warcraft Forever">
+  <meta name="twitter:description" content="Consulta las normas de convivencia de NEXUS: respeto, comunidad, raids, PvP, Discord y participación en World of Warcraft Forever.">
+  <meta name="twitter:image" content="https://byg80.github.io/nexus-forever/img/galeria/Azeroth01.jpg">
 </head><body>
 <nav class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">NEXUS</a>
-    <button class="menu-toggle" aria-label="Abrir menú">☰</button>
-    <div class="nav-links">
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">☰</button>
+    <div class="nav-links" id="main-navigation">
       <a href="index.html">Inicio</a>
       <a href="historia.html">Historia</a>
       <a href="raids.html">Raids</a>
@@ -30,125 +43,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div><strong>NEXUS — VETERANOS DE AZEROTH</strong><p>World of Warcraft Forever · Comunidad española</p></div>
-    <div><a href="reclutamiento.html">Reclutamiento</a> · <a href="normas.html">Normas</a></div>
+    <div><a href="reclutamiento.html">Reclutamiento</a> · <a href="normas.html" aria-current="page">Normas</a></div>
   </div>
   <div class="copyright">© 2026 NEXUS — Veteranos de Azeroth</div>
 </footer>
 <button class="back-top" aria-label="Volver arriba">↑</button>
 <script src="./js/script.js"></script>
-
-<script>
-(function () {
-  'use strict';
-
-  const STORAGE_KEY = 'nexusMusicEnabled';
-  let audio = null;
-  let started = false;
-
-  function findAudio() {
-    if (audio && document.contains(audio)) return audio;
-    audio = document.querySelector('audio');
-    return audio;
-  }
-
-  function updateButton() {
-    const a = findAudio();
-    if (!a) return;
-    document.querySelectorAll(
-      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-    ).forEach(btn => {
-      btn.setAttribute('aria-pressed', String(!a.paused));
-      if (btn.dataset && btn.dataset.musicLabel !== 'false') {
-        const icon = btn.querySelector('.music-icon');
-        if (icon) icon.textContent = a.paused ? '🔇' : '🔊';
-      }
-    });
-  }
-
-  function startMusic() {
-    const a = findAudio();
-    if (!a) return;
-    a.loop = true;
-    a.muted = false;
-    const p = a.play();
-    if (p && typeof p.catch === 'function') {
-      p.then(() => {
-        started = true;
-        localStorage.setItem(STORAGE_KEY, '1');
-        updateButton();
-      }).catch(() => {
-        // Browser autoplay policy: first user interaction will retry.
-      });
-    }
-  }
-
-  function stopMusic() {
-    const a = findAudio();
-    if (!a) return;
-    a.pause();
-    localStorage.setItem(STORAGE_KEY, '0');
-    updateButton();
-  }
-
-  function toggleMusic(e) {
-    if (e) e.stopPropagation();
-    const a = findAudio();
-    if (!a) return;
-    if (a.paused) startMusic();
-    else stopMusic();
-  }
-
-  function initMusic() {
-    const a = findAudio();
-    if (!a) return;
-
-    a.loop = true;
-    a.autoplay = true;
-    a.setAttribute('autoplay', '');
-    a.setAttribute('loop', '');
-
-    // Default is ON unless the user explicitly disabled it.
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved !== '0') {
-      startMusic();
-
-      // Retry after the first interaction if autoplay was blocked.
-      const retry = function () {
-        startMusic();
-        document.removeEventListener('pointerdown', retry, true);
-        document.removeEventListener('keydown', retry, true);
-        document.removeEventListener('touchstart', retry, true);
-      };
-      document.addEventListener('pointerdown', retry, true);
-      document.addEventListener('keydown', retry, true);
-      document.addEventListener('touchstart', retry, true);
-    } else {
-      a.pause();
-      updateButton();
-    }
-
-    document.querySelectorAll(
-      '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-    ).forEach(btn => {
-      btn.addEventListener('click', toggleMusic);
-    });
-
-    a.addEventListener('play', updateButton);
-    a.addEventListener('pause', updateButton);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMusic);
-  } else {
-    initMusic();
-  }
-
-  window.NexusMusic = {
-    play: startMusic,
-    pause: stopMusic,
-    toggle: toggleMusic
-  };
-})();
-</script>
 
 </body></html>

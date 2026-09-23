@@ -1,1 +1,11 @@
-.page-hero{background:linear-gradient(180deg,rgba(215,173,88,.035),transparent)}
+.page-hero{background:linear-gradient(180deg,rgba(215,173,88,.05),transparent)}
+.recruitment-form-card{margin-top:22px}
+.recruitment-form-card form{margin-top:22px}
+.recruitment-form-card code{font-size:.9em;color:var(--gold2)}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.form-field select{appearance:auto}
+.check-row{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:10px;color:var(--muted)!important;font-weight:400!important;line-height:1.5}
+.check-row input{width:auto!important;margin-top:4px;accent-color:var(--gold)}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.form-success{margin:0 0 20px;padding:14px 16px;border:1px solid var(--gold);border-radius:7px;background:rgba(215,173,88,.08);color:var(--gold2);font-weight:700}
+@media(max-width:700px){.form-actions .btn{width:100%;text-align:center}}

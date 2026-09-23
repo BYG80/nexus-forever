@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- SEO principal -->
-  <title>NEXUS — Hermandad World of Warcraft Forever | Veteranos de Azeroth</title>
-  <meta name="description" content="NEXUS — Veteranos de Azeroth es una hermandad y comunidad española de World of Warcraft Forever. Raids, mazmorras, PvP, profesiones, eventos y comunidad.">
+  <title>NEXUS — Hermandad de World of Warcraft Forever | Veteranos de Azeroth</title>
+  <meta name="description" content="NEXUS es una hermandad española de World of Warcraft Forever para disfrutar de raids, mazmorras, PvP, arenas, campos de batalla, profesiones y comunidad.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://byg80.github.io/nexus-forever/">
 
@@ -48,7 +48,7 @@
   <nav class="site-nav" aria-label="Navegación principal">
     <div class="nav-inner">
 
-      <a class="brand" href="./index.html" aria-label="NEXUS — Inicio">
+      <a class="brand" href="./index.html" aria-current="page" aria-label="NEXUS — Inicio">
         NEXUS
       </a>
 
@@ -62,7 +62,7 @@
       </button>
 
       <div class="nav-links" id="main-navigation">
-        <a href="./index.html" aria-current="page">Inicio</a>
+        <a href="./index.html">Inicio</a>
         <a href="./historia.html">Historia</a>
         <a href="./raids.html">Raids</a>
         <a href="./mazmorras.html">Mazmorras</a>
@@ -304,282 +304,6 @@
 
   <!-- JavaScript principal -->
   <script src="./js/script.js"></script>
-
-
-  <!-- Sistema de música -->
-  <script>
-  (function () {
-    'use strict';
-
-    const STORAGE_KEY = 'nexusMusicEnabled';
-
-    let audio = null;
-    let started = false;
-
-    function findAudio() {
-      if (audio && document.contains(audio)) {
-        return audio;
-      }
-
-      audio = document.querySelector('audio');
-
-      return audio;
-    }
-
-    function updateButton() {
-
-      const a = findAudio();
-
-      if (!a) {
-        return;
-      }
-
-      document.querySelectorAll(
-        '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-      ).forEach(function (btn) {
-
-        btn.setAttribute(
-          'aria-pressed',
-          String(!a.paused)
-        );
-
-        if (
-          btn.dataset &&
-          btn.dataset.musicLabel !== 'false'
-        ) {
-
-          const icon = btn.querySelector('.music-icon');
-
-          if (icon) {
-            icon.textContent = a.paused ? '🔇' : '🔊';
-          }
-
-        }
-
-      });
-
-    }
-
-
-    function startMusic() {
-
-      const a = findAudio();
-
-      if (!a) {
-        return;
-      }
-
-      a.loop = true;
-      a.muted = false;
-
-      const p = a.play();
-
-      if (p && typeof p.catch === 'function') {
-
-        p.then(function () {
-
-          started = true;
-
-          localStorage.setItem(
-            STORAGE_KEY,
-            '1'
-          );
-
-          updateButton();
-
-        }).catch(function () {
-
-          // El navegador puede bloquear el autoplay.
-          // Se intentará iniciar tras la primera interacción.
-
-        });
-
-      }
-
-    }
-
-
-    function stopMusic() {
-
-      const a = findAudio();
-
-      if (!a) {
-        return;
-      }
-
-      a.pause();
-
-      localStorage.setItem(
-        STORAGE_KEY,
-        '0'
-      );
-
-      updateButton();
-
-    }
-
-
-    function toggleMusic(e) {
-
-      if (e) {
-        e.stopPropagation();
-      }
-
-      const a = findAudio();
-
-      if (!a) {
-        return;
-      }
-
-      if (a.paused) {
-        startMusic();
-      } else {
-        stopMusic();
-      }
-
-    }
-
-
-    function initMusic() {
-
-      const a = findAudio();
-
-      if (!a) {
-        return;
-      }
-
-      a.loop = true;
-      a.autoplay = true;
-
-      a.setAttribute(
-        'autoplay',
-        ''
-      );
-
-      a.setAttribute(
-        'loop',
-        ''
-      );
-
-
-      // La música está activada por defecto
-      // salvo que el usuario la haya desactivado.
-
-      const saved =
-        localStorage.getItem(STORAGE_KEY);
-
-
-      if (saved !== '0') {
-
-        startMusic();
-
-
-        // Reintento después de la primera interacción.
-
-        const retry = function () {
-
-          startMusic();
-
-          document.removeEventListener(
-            'pointerdown',
-            retry,
-            true
-          );
-
-          document.removeEventListener(
-            'keydown',
-            retry,
-            true
-          );
-
-          document.removeEventListener(
-            'touchstart',
-            retry,
-            true
-          );
-
-        };
-
-
-        document.addEventListener(
-          'pointerdown',
-          retry,
-          true
-        );
-
-        document.addEventListener(
-          'keydown',
-          retry,
-          true
-        );
-
-        document.addEventListener(
-          'touchstart',
-          retry,
-          true
-        );
-
-      } else {
-
-        a.pause();
-
-        updateButton();
-
-      }
-
-
-      document.querySelectorAll(
-        '[data-music-toggle], #musicToggle, #music-toggle, .music-toggle, .audio-toggle'
-      ).forEach(function (btn) {
-
-        btn.addEventListener(
-          'click',
-          toggleMusic
-        );
-
-      });
-
-
-      a.addEventListener(
-        'play',
-        updateButton
-      );
-
-      a.addEventListener(
-        'pause',
-        updateButton
-      );
-
-    }
-
-
-    if (document.readyState === 'loading') {
-
-      document.addEventListener(
-        'DOMContentLoaded',
-        initMusic
-      );
-
-    } else {
-
-      initMusic();
-
-    }
-
-
-    window.NexusMusic = {
-
-      play: startMusic,
-
-      pause: stopMusic,
-
-      toggle: toggleMusic
-
-    };
-
-  })();
-  </script>
-
 </body>
 </html>
 

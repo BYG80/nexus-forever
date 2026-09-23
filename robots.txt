@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://byg80.github.io/nexus-forever/sitemap.xml
