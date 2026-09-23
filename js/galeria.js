@@ -64,7 +64,7 @@ image => filter === "Todas" || image.cat === filter
 
 function renderFilters() {
 
-```
+
 filters.innerHTML = "";
 
 const categories = [
@@ -104,13 +104,13 @@ categories.forEach(category => {
   filters.appendChild(button);
 
 });
-```
+
 
 }
 
 function render() {
 
-```
+
 const currentImages = visibleImages();
 
 renderFilters();
@@ -256,13 +256,13 @@ currentImages.forEach((image, i) => {
 
 slider.appendChild(prevButton);
 slider.appendChild(nextButton);
-```
+
 
 }
 
 function move(amount) {
 
-```
+
 const currentImages = visibleImages();
 
 if (!currentImages.length) {
@@ -274,7 +274,7 @@ index =
   currentImages.length;
 
 render();
-```
+
 
 }
 
@@ -292,7 +292,7 @@ TECLADO
 
 document.addEventListener("keydown", event => {
 
-```
+
 if (event.key === "ArrowLeft") {
   move(-1);
 }
@@ -300,7 +300,7 @@ if (event.key === "ArrowLeft") {
 if (event.key === "ArrowRight") {
   move(1);
 }
-```
+
 
 });
 
