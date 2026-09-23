@@ -1,0 +1,7 @@
+[
+  {"src":"./img/galeria/1.avif","title":"Empezando la aventura","cat":"Comienzo","desc":"Logo del juego"}
+  {"src":"./img/galeria/nexus-raids.svg","title":"Noches de Raid","cat":"Raids","desc":"Momentos de progresión de NEXUS"},
+  {"src":"./img/galeria/nexus-azeroth.svg","title":"Explorando Azeroth","cat":"Azeroth","desc":"Aventuras y exploración"},
+  {"src":"./img/galeria/nexus-pvp.svg","title":"Honor y combate","cat":"PvP","desc":"Actividades PvP de la hermandad"},
+  {"src":"./img/galeria/nexus-community.svg","title":"Juntos en Forever","cat":"Comunidad","desc":"La comunidad por encima de todo"}
+]
