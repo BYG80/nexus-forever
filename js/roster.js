@@ -5,6 +5,12 @@ const roster = [
   {name:"Cairne", race:"Tauren", className:"Guerrero"},
   {name:"Sylvanas", race:"No-muerto", className:"Cazadora"},
   {name:"Rokhan", race:"Trol", className:"Pícaro"},
+  {name:"Nazgrel", race:"Orco", className:"Guerrero"},
+  {name:"Thrall", race:"Orco", className:"Chamán"},
+  {name:"Vol'jin", race:"Trol", className:"Cazador"},
+  {name:"Cairne", race:"Tauren", className:"Guerrero"},
+  {name:"Sylvanas", race:"No-muerto", className:"Cazadora"},
+  {name:"Rokhan", race:"Trol", className:"Pícaro"},
   {name:"Nazgrel", race:"Orco", className:"Guerrero"}
 ];
 
