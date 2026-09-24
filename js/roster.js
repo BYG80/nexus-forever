@@ -1,6 +1,6 @@
 const roster = [
   // EJEMPLOS: sustituye estas entradas por los personajes reales de NEXUS.
-  {name:"Thrall", race:"Orco", className:"Chamán"},
+  {name:"Malrik", race:"No-muerto", className:"Mago"},
   {name:"Vol'jin", race:"Trol", className:"Cazador"},
   {name:"Cairne", race:"Tauren", className:"Guerrero"},
   {name:"Sylvanas", race:"No-muerto", className:"Cazadora"},
