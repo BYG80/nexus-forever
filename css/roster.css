@@ -1,0 +1,19 @@
+/* NEXUS ROSTER */
+.roster-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 28px}
+.roster-toolbar input,.roster-toolbar select{flex:1 1 190px;min-height:44px;padding:10px 13px;border:1px solid rgba(215,173,88,.24);border-radius:6px;background:#090c11;color:var(--text);font:inherit}
+.roster-count{color:var(--muted);font-size:.9rem;margin-bottom:18px}
+.roster-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.roster-card{position:relative;display:grid;grid-template-columns:78px 1fr;gap:16px;align-items:center;padding:16px;background:linear-gradient(145deg,#111720,#0b0f15);border:1px solid rgba(215,173,88,.18);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.18);overflow:hidden}
+.roster-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--race-color,var(--gold))}
+.race-portrait{width:78px;height:78px;border-radius:8px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.13),transparent 48%),#151b24;border:1px solid rgba(255,255,255,.09);overflow:hidden}
+.race-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.race-portrait .portrait-fallback{font-family:Georgia,serif;font-weight:800;font-size:1.8rem;color:var(--race-color,var(--gold2));text-shadow:0 2px 8px #000}
+.roster-name{margin:0 0 5px;font-size:1.15rem;color:#fff;font-weight:800}
+.roster-meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-size:.8rem}
+.roster-race{color:var(--race-color,var(--gold2));font-weight:700}
+.roster-class{font-weight:800}
+.roster-sep{color:#555d69}
+.roster-empty{grid-column:1/-1;padding:35px;text-align:center;border:1px dashed rgba(215,173,88,.25);border-radius:8px;color:var(--muted)}
+.roster-note{margin-top:25px;padding:15px 17px;border-left:3px solid var(--gold);background:rgba(215,173,88,.045);color:var(--muted);font-size:.9rem}
+@media(max-width:950px){.roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.roster-grid{grid-template-columns:1fr}.roster-card{grid-template-columns:68px 1fr}.race-portrait{width:68px;height:68px}}
