@@ -14,6 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
         //     cat: "Vídeos",
         //     desc: "Descripción del vídeo"
         // },
+                // Para añadir un vídeo de YouTube:
+         {
+             type: "video",
+           youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
+           title: "Nombre del vídeo",
+           cat: "Vídeos",
+           desc: "Descripción del vídeo"
+     },
+
 
         {
             src: "./img/galeria/Deadtmines.jpg",
