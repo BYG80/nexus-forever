@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // },
                 // Para añadir un vídeo de YouTube:
          {
-             type: "video",
+         type: "video",
            youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
-           title: "Nombre del vídeo",
+           title: "Trailer",
            cat: "Vídeos",
-           desc: "Descripción del vídeo"
+           desc: "Trailer wow forever"
      },
 
 
