@@ -8,7 +8,7 @@ const roster = [
   {name:"Malrik Caminavientos", race:"Troll", className:"Chamán"},
   {name:"Zaw Pal", race:"No-muerto", className:"Paladín"},
   {name:"Chac Norris", race:"Orco", className:"Guerrero"},
-  {name:"Cairne", race:"Tauren", className:"Guerrero"},
+  {name:"Apostolicus", race:"No-muerto", className:"Paladín"},
   {name:"Sylvanas", race:"No-muerto", className:"Cazadora"},
   {name:"Rokhan", race:"Trol", className:"Pícaro"},
   {name:"Nazgrel", race:"Orco", className:"Guerrero"}
