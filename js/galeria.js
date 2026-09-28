@@ -8,7 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const images = [
 
         {
-            src: "./img/galeria/nexus-raids.svg",
+            src: "./img/galeria/Deadtmines.jpg",
+            title: "Noches de Raid",
+            cat: "Raids",
+            desc: "Momentos de progresión de NEXUS"
+        },
+           {
+            src: "./img/galeria/instance01.jpg",
             title: "Noches de Raid",
             cat: "Raids",
             desc: "Momentos de progresión de NEXUS"
@@ -23,6 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         {
             src: "./img/galeria/Azeroth02.jpg",
+            title: "Explorando Azeroth",
+            cat: "Azeroth",
+            desc: "Aventuras y exploración por Azeroth"
+        },
+           {
+            src: "./img/galeria/Azeroth03.jpg",
             title: "Explorando Azeroth",
             cat: "Azeroth",
             desc: "Aventuras y exploración por Azeroth"
