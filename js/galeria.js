@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const images = [
         // Para añadir un vídeo de YouTube:
-        // {
-        //     type: "video",
-        //     youtube: "https://www.youtube.com/watch?v=TU_ID",
-        //     title: "Nombre del vídeo",
-        //     cat: "Vídeos",
-        //     desc: "Descripción del vídeo"
-        // },
+        {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
+           title: "Trailer",
+           cat: "Vídeos",
+           desc: "Trailer Forever"
+        },
 
         {
             src: "./img/galeria/Deadtmines.jpg",
