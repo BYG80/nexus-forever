@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         {
             src: "./img/galeria/Deadtmines.jpg",
-            title: "Noches de Raid",
+            title: "Noche de Mazmorra",
             cat: "Raids",
-            desc: "Momentos de progresión de NEXUS"
+            desc: "Momentos de progresión de NEXUS en la Beta"
         },
            {
             src: "./img/galeria/instance01.jpg",
-            title: "Noches de Raid",
+            title: "Noche de Mazmorra",
             cat: "Raids",
             desc: "Momentos de progresión de NEXUS"
         },
