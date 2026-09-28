@@ -1,11 +1,11 @@
 const roster = [
   // EJEMPLOS: sustituye estas entradas por los personajes reales de NEXUS.
   {name:"Malrik", race:"No-muerto", className:"Mago"},
-  {name:"Vol'jin", race:"Trol", className:"Cazador"},
-  {name:"Cairne", race:"Tauren", className:"Guerrero"},
-  {name:"Sylvanas", race:"No-muerto", className:"Cazadora"},
-  {name:"Rokhan", race:"Trol", className:"Pícaro"},
-  {name:"Nazgrel", race:"Orco", className:"Guerrero"},
+  {name:"Krauss Toot", race:"No-muerto", className:"Sacerdote"},
+  {name:"Mataratas Calderaro", race:"No-muerto", className:"Guerrero"},
+  {name:"Holdem Thebest", race:"No-muerto", className:"Pícaro"},
+  {name:"Elca Kas", race:"No-muerto", className:"Mago"},
+  {name:"Malrik Caminavientos", race:"Troll", className:"Chamán"},
   {name:"Thrall", race:"Orco", className:"Chamán"},
   {name:"Vol'jin", race:"Trol", className:"Cazador"},
   {name:"Cairne", race:"Tauren", className:"Guerrero"},
