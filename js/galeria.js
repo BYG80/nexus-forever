@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
             cat: "Azeroth",
             desc: "Aventuras y exploración por Azeroth"
         },
+               {
+            src: "./img/galeria/Azeroth04.jpg",
+            title: "Explorando Azeroth",
+            cat: "Azeroth",
+            desc: "Aventuras y exploración por Azeroth"
+        },
 
         {
             src: "./img/galeria/nexus-pvp.svg",
