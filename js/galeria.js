@@ -27,7 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
             cat: "Raids",
             desc: "Momentos de progresión de NEXUS"
         },
-
+   {
+            src: "./img/galeria/Colmillo01.jpg",
+            title: "Noche de Mazmorra",
+            cat: "Raids",
+            desc: "Momentos de progresión de NEXUS"
+        },
         {
             src: "./img/galeria/Azeroth01.jpg",
             title: "Explorando Azeroth",
