@@ -28,6 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
            cat: "Vídeos",
            desc: "Mazmorra La excavación Olvidada"
         },
+             {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=37rcMgC8XyU",
+           title: " WoW Forever PvP con NEXUS",
+           cat: "Vídeos",
+           desc: " WoW Forever PvP con NEXUS"
+        },
         {
            type: "video",
            youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
@@ -86,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cat: "PvP",
             desc: "Actividades PvP de la hermandad"
         },
+        
 
         {
             src: "./img/galeria/nexus-community.svg",
