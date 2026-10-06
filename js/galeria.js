@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const images = [
         // Para añadir un vídeo de YouTube:
-            {
+           {
            type: "video",
-           youtube: "https://www.youtube.com/watch?v=9UQnYz9iYD8",
-           title: "Brazanegra",
+           youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
+           title: "Trailer",
            cat: "Vídeos",
-           desc: "Mazmorra de brazanegra"
+           desc: "Trailer Forever"
         },
-                  {
+                          {
            type: "video",
            youtube: "https://www.youtube.com/watch?v=X2LpV6henmQ",
            title: "La excavación Olvidada parte 1",
@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
            cat: "Vídeos",
            desc: "Mazmorra La excavación Olvidada"
         },
+            {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=9UQnYz9iYD8",
+           title: "Brazanegra",
+           cat: "Vídeos",
+           desc: "Mazmorra de brazanegra"
+        },
+
              {
            type: "video",
            youtube: "https://www.youtube.com/watch?v=37rcMgC8XyU",
@@ -35,13 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
            cat: "Vídeos",
            desc: " WoW Forever PvP con NEXUS"
         },
-        {
-           type: "video",
-           youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
-           title: "Trailer",
-           cat: "Vídeos",
-           desc: "Trailer Forever"
-        },
+     
 
         {
             src: "./img/galeria/Deadtmines.jpg",
