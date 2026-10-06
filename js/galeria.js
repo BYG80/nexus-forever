@@ -7,6 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const images = [
         // Para añadir un vídeo de YouTube:
+            {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=9UQnYz9iYD8",
+           title: "Brazanegra",
+           cat: "Vídeos",
+           desc: "Mazmorra de brazanegra"
+        },
+                  {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=X2LpV6henmQ",
+           title: "La excavación Olvidada parte 1",
+           cat: "Vídeos",
+           desc: "Mazmorra La excavación Olvidada"
+        },
+        {
+           type: "video",
+           youtube: "https://www.youtube.com/watch?v=_MXFf7JVEOs",
+           title: "La excavación Olvidada parte 2",
+           cat: "Vídeos",
+           desc: "Mazmorra La excavación Olvidada"
+        },
         {
            type: "video",
            youtube: "https://www.youtube.com/watch?v=4iWG5Qbwj30",
